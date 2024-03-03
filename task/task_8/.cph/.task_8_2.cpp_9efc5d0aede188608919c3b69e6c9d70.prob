@@ -1,0 +1,1 @@
+{"name":"Local: task_8_2","url":"d:\\vscode\\code\\c++\\task\\task_8\\task_8_2.cpp","tests":[{"id":1700015096875,"input":"asdf yf ert\nf","output":"Enter a string: Enter a character: The character occurs at index: 4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\vscode\\code\\c++\\task\\task_8\\task_8_2.cpp","group":"local","local":true}

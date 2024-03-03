@@ -1,0 +1,1 @@
+{"name":"Local: task_8_1","url":"d:\\vscode\\code\\c++\\task\\task_8\\task_8_1.cpp","tests":[{"id":1700014495470,"input":"1 2 3 4 5 6 7 9 10 12\n8","output":"输入10个数组元素  输入插入的值  插入后的数组  1 2 3 4 5 6 7 8 9 10 12"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\vscode\\code\\c++\\task\\task_8\\task_8_1.cpp","group":"local","local":true}

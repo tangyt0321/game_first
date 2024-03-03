@@ -1,0 +1,1 @@
+{"name":"Local: remain_pointer","url":"d:\\vscode\\code\\c++\\myself\\simple_txt\\remain_pointer.cpp","tests":[{"id":1699857975837,"input":"1 2 0 -89 34 3 6 23 1 0","output":"Enter the string: \n-89\n3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\vscode\\code\\c++\\myself\\simple_txt\\remain_pointer.cpp","group":"local","local":true}

@@ -1,0 +1,1 @@
+{"name":"Local: task_7_5","url":"d:\\vscode\\code\\c++\\task\\task_7\\task_7_5.cpp","tests":[{"id":1699837432861,"input":"1 2 0 -89 34 3 6 23 1 0","output":"Enter the string: \n-89\n3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\vscode\\code\\c++\\task\\task_7\\task_7_5.cpp","group":"local","local":true}
