@@ -1,6 +1,6 @@
 #include <iostream>
 #include <conio.h>
-#include <graphics.h>
+#include <easyx.h>
 #include <math.h>
 
 #include "player.h"
