@@ -1,8 +1,8 @@
 #ifndef _PLAYER_
 #define _PLAYER_
 
-#define SPEED 2;
-#define P_G 10;
+#define SPEED 4;
+#define P_G 1;
 
 class Player
 {
@@ -39,7 +39,7 @@ public:
         else
             putimage(x, y, player_r);
 
-        y += 2 * air_time - c;
+        y += 1 * air_time - c;
 
         Sleep(5);
         if (y >= 600)
@@ -58,19 +58,7 @@ public:
     {
         if (GetAsyncKeyState('J'))
         {
-            if (stl == 2)
-            {
-                IMAGE ar_p;
-                loadimage(&ar_p, _T("./picture/attack/attack_r.png"), 70, 50);
-                putimage(x + 20, y, &ar_p);
-            }
-            else if (stl == 1)
-            {
-                IMAGE al_p;
-                loadimage(&al_p, _T("./picture/attack/attack_l.png"), 70, 50);
-                putimage(x - 40, y, &al_p);
-            }
-            else if (GetAsyncKeyState('W'))
+            if (GetAsyncKeyState('W'))
             {
                 IMAGE au_p;
                 loadimage(&au_p, _T("./picture/attack/attack_u.png"), 70, 90);
@@ -84,6 +72,21 @@ public:
             }
             else
             {
+                if (stl == 2)
+                {
+                    IMAGE ar_p;
+                    loadimage(&ar_p, _T("./picture/attack/attack_r.png"), 70, 50);
+                    putimage(x + 20, y, &ar_p);
+                }
+                else if (stl == 1)
+                {
+                    IMAGE al_p;
+                    loadimage(&al_p, _T("./picture/attack/attack_l.png"), 70, 50);
+                    putimage(x - 40, y, &al_p);
+                }
+                else
+                {
+                }
             }
         }
     }

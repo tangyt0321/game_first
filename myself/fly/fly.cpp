@@ -69,10 +69,11 @@ int main()
 {
     initgraph(640, 480);
     srand(time(NULL));
+    setbkcolor(WHITE);
 
     Player player;
     Enemy enemy;
-    Bullet bullet;
+    Bullet bullet(0, 0);
 
     while (!_kbhit())
     {

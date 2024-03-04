@@ -18,9 +18,9 @@ int main()
 {
     initgraph(1024, 800);
 
-    IMAGE bgImage;
-    loadimage(&bgImage, _T("./picture/background.png"));
-    putimage(0, 0, &bgImage);
+    // IMAGE bgImage;
+    // loadimage(&bgImage, _T("./picture/background.png"));
+    // putimage(0, 0, &bgImage);
 
     IMAGE pl;
     IMAGE pr;
