@@ -41,7 +41,7 @@ public:
 
         y += 1 * air_time - c;
 
-        Sleep(5);
+
         if (y >= 600)
         {
             y = 600;
@@ -54,39 +54,46 @@ public:
         }
     }
 
-    void attack(int stl)
+    void attack(int stl, int num)
     {
+        if (num < 0)
+            num = 0;
+
         if (GetAsyncKeyState('J'))
         {
-            if (GetAsyncKeyState('W'))
+            if (num <= 0)
             {
-                IMAGE au_p;
-                loadimage(&au_p, _T("./picture/attack/attack_u.png"), 70, 90);
-                putimage(x, y - 20, &au_p);
-            }
-            else if (GetAsyncKeyState('S'))
-            {
-                IMAGE ad_p;
-                loadimage(&ad_p, _T("./picture/attack/attack_d.png"), 70, 90);
-                putimage(x, y + 20, &ad_p);
-            }
-            else
-            {
-                if (stl == 2)
+                if (GetAsyncKeyState('W'))
                 {
-                    IMAGE ar_p;
-                    loadimage(&ar_p, _T("./picture/attack/attack_r.png"), 70, 50);
-                    putimage(x + 20, y, &ar_p);
+                    IMAGE au_p;
+                    loadimage(&au_p, _T("./picture/attack/attack_u.png"), 70, 90);
+                    putimage(x, y - 20, &au_p);
                 }
-                else if (stl == 1)
+                else if (GetAsyncKeyState('S'))
                 {
-                    IMAGE al_p;
-                    loadimage(&al_p, _T("./picture/attack/attack_l.png"), 70, 50);
-                    putimage(x - 40, y, &al_p);
+                    IMAGE ad_p;
+                    loadimage(&ad_p, _T("./picture/attack/attack_d.png"), 70, 90);
+                    putimage(x, y + 20, &ad_p);
                 }
                 else
                 {
+                    if (stl == 2)
+                    {
+                        IMAGE ar_p;
+                        loadimage(&ar_p, _T("./picture/attack/attack_r.png"), 70, 40);
+                        putimage(x + 20, y, &ar_p);
+                    }
+                    else if (stl == 1)
+                    {
+                        IMAGE al_p;
+                        loadimage(&al_p, _T("./picture/attack/attack_l.png"), 70, 40);
+                        putimage(x - 40, y, &al_p);
+                    }
+                    else
+                    {
+                    }
                 }
+                num += 20;
             }
         }
     }

@@ -29,14 +29,16 @@ int main()
 
     Player player;
 
-    int style = 0;
+    int style = 0, num = 0;
 
     player.draw(&pr);
 
     while (!_kbhit())
     {
         player.move(&pl, &pr, &style);
-        player.attack(style);
+        player.attack(style, num);
+        num--;
+        Sleep(5);
     }
 
     return 0;

@@ -84,7 +84,7 @@ int main()
 
         if (_kbhit())
         {
-            if (_getch() == ' ')
+            if (_getch() == 'j')
             {
                 // 在玩家飞机位置创建子弹对象
                 bullet = Bullet(player.x, player.y);
