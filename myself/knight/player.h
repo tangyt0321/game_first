@@ -1,7 +1,7 @@
 #ifndef _PLAYER_
 #define _PLAYER_
 
-#define SPEED 4;
+#define SPEED 5;
 #define P_G 1;
 
 class Player
@@ -9,8 +9,6 @@ class Player
 public:
     int x = 0, y = 200, air_time = 1, c = 0;
     Player() {}
-    
-
     void draw(IMAGE *player)
     {
         putimage(x, y, player);
@@ -42,20 +40,24 @@ public:
 
         y += 1 * air_time - c;
 
-
         if (y >= 600)
         {
             y = 600;
+        }
+
+        if (y >= 600)
+        {
             air_time = 0;
             c = 0;
         }
+
         else
         {
             air_time++;
         }
     }
-
-    void attack(int stl, int num)
+    void
+    attack(int stl, int num)
     {
         if (num < 0)
             num = 0;
@@ -81,14 +83,14 @@ public:
                     if (stl == 2)
                     {
                         IMAGE ar_p;
-                        loadimage(&ar_p, _T("./picture/attack/attack_r.png"), 70, 40);
-                        putimage(x + 20, y, &ar_p,  NOTSRCERASE);
+                        loadimage(&ar_p, _T("./picture/attack/attack_r.png"), 70, 35);
+                        putimage(x + 20, y, &ar_p, SRCINVERT);
                     }
                     else if (stl == 1)
                     {
                         IMAGE al_p;
-                        loadimage(&al_p, _T("./picture/attack/attack_l.png"), 70, 40);
-                        putimage(x - 40, y, &al_p);
+                        loadimage(&al_p, _T("./picture/attack/attack_l.png"), 70, 35);
+                        putimage(x - 70, y, &al_p);
                     }
                     else
                     {

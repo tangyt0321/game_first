@@ -36,10 +36,11 @@ int main()
 
     while (!_kbhit())
     {
+        cleardevice();
         player.move(p, &style);
         player.attack(style, num);
         num--;
-        Sleep(5);
+        Sleep(30);
     }
 
     return 0;
