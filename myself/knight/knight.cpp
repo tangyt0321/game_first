@@ -17,14 +17,16 @@
 int main()
 {
     initgraph(1024, 800);
+    setbkcolor(WHITE);
+    cleardevice();
 
     // IMAGE bgImage;
     // loadimage(&bgImage, _T("./picture/background.png"));
     // putimage(0, 0, &bgImage);
 
     IMAGE p[2];
-    loadimage(p , _T("./picture/player/player_.png"), 20, 36);
-    loadimage(p+1, _T("./picture/player/player_r.png"), 20, 36);
+    loadimage(p, _T("./picture/player/player_.png"), 20, 36);
+    loadimage(p + 1, _T("./picture/player/player_r.png"), 20, 36);
 
     Player player;
 

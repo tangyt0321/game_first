@@ -9,6 +9,7 @@ class Player
 public:
     int x = 0, y = 200, air_time = 1, c = 0;
     Player() {}
+    
 
     void draw(IMAGE *player)
     {
@@ -37,7 +38,7 @@ public:
         if (*stl == 1)
             putimage(x, y, player);
         else
-            putimage(x, y, player+1);
+            putimage(x, y, player + 1);
 
         y += 1 * air_time - c;
 
@@ -81,7 +82,7 @@ public:
                     {
                         IMAGE ar_p;
                         loadimage(&ar_p, _T("./picture/attack/attack_r.png"), 70, 40);
-                        putimage(x + 20, y, &ar_p);
+                        putimage(x + 20, y, &ar_p,  NOTSRCERASE);
                     }
                     else if (stl == 1)
                     {
