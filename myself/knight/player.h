@@ -15,7 +15,7 @@ public:
         putimage(x, y, player);
     }
 
-    void move(IMAGE *player_l, IMAGE *player_r, int *stl)
+    void move(IMAGE *player, int *stl)
     {
 
         if (GetAsyncKeyState('A'))
@@ -35,9 +35,9 @@ public:
         }
 
         if (*stl == 1)
-            putimage(x, y, player_l);
+            putimage(x, y, player);
         else
-            putimage(x, y, player_r);
+            putimage(x, y, player+1);
 
         y += 1 * air_time - c;
 

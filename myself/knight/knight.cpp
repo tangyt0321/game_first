@@ -22,20 +22,19 @@ int main()
     // loadimage(&bgImage, _T("./picture/background.png"));
     // putimage(0, 0, &bgImage);
 
-    IMAGE pl;
-    IMAGE pr;
-    loadimage(&pr, _T("./picture/player/player_r.png"), 20, 36);
-    loadimage(&pl, _T("./picture/player/player_.png"), 20, 36);
+    IMAGE p[2];
+    loadimage(p , _T("./picture/player/player_.png"), 20, 36);
+    loadimage(p+1, _T("./picture/player/player_r.png"), 20, 36);
 
     Player player;
 
     int style = 0, num = 0;
 
-    player.draw(&pr);
+    player.draw(p+1);
 
     while (!_kbhit())
     {
-        player.move(&pl, &pr, &style);
+        player.move(p, &style);
         player.attack(style, num);
         num--;
         Sleep(5);
