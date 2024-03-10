@@ -1,0 +1,31 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++: g++.exe 生成和调试活动文件",
+      "type": "cppdbg",
+      "request": "launch", //launch模式允许我们打断点进行调试，默认即可
+      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "args": [], //（常用）程序(main函数)的入口参数
+      "stopAtEntry": false, //在入口处暂停，选true相当于在入口处增加断点
+      "cwd": "${fileDirname}",
+      "environment": [],
+      "externalConsole": true, //外部控制台，true在调试时会开启系统控制台窗口，false会使用vscode自带的调试控制台
+      "MIMode": "gdb",
+      "miDebuggerPath": "C:\\Program Files\\mingw64\\bin\\gdb.exe",
+      "setupCommands": [
+        {
+          "description": "为 gdb 启用整齐打印",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "将反汇编风格设置为 Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "C/C++: g++.exe 生成活动文件"
+    }
+  ]
+}
