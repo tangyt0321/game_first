@@ -10,7 +10,6 @@
 // 批量处理图片
 IMAGE img_player[PLAYER_ANIM_NUM];
 // 修改图片为背景透明图片
-
 #pragma comment(lib, "msimg32.lib")
 inline void putimage_alpha(int x, int y, IMAGE *img)
 {

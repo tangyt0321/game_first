@@ -7,8 +7,8 @@
 
 // #include "scene.h"
 //  #include "game_scene.h"
-#include "animation.h"
-#include "player.h"
+#include "Animation.h"
+#include "player/player.h"
 // #include "menu_scene.h"
 
 // 当前动画帧索引
@@ -55,7 +55,7 @@ int main()
         player.Move();
         player.Draw(1000 / 144);
         // scene->on_draw();
-        
+
         FlushBatchDraw();
 
         // 帧率
