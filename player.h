@@ -4,9 +4,8 @@
 #include <easyx.h>
 #include "Animation.h"
 
-#define PLAYER_ANIM_NUM 6
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+#define WINDOW_WIDTH 1280
+#define WINDOW_HEIGHT 720
 
 class Player
 {
@@ -14,8 +13,8 @@ class Player
 private:
     const int PLAYER_WIDTH = 80;  // 玩家宽度
     const int PLAYER_HEIGHT = 80; // 玩家高度
-    const int SHADOW_WIDTH = 32;  // 阴影宽度
-    const int PLAYER_SPEED = 5;
+    const int SHADOW_WIDTH = 50;  // 阴影宽度
+    const int PLAYER_SPEED = 10;
 
 private:
     IMAGE img_shadow;
@@ -30,9 +29,9 @@ private:
 public:
     Player()
     {
-        loadimage(&img_shadow, _T("img/player/shadow_player.png"));
-        anim_left = new Animation(_T("img/player/left_player.png"), PLAYER_ANIM_NUM, 45);
-        anim_right = new Animation(_T("img/player/right_player.png"), PLAYER_ANIM_NUM, 45);
+        loadimage(&img_shadow, _T("img/player/shadow_player.png"), 50, 30);
+        anim_left = new Animation(_T("img/player/player_left_%d.png"), PLAYER_ANIM_NUM, 45, PLAYER_WIDTH, PLAYER_HEIGHT);
+        anim_right = new Animation(_T("img/player/player_right_%d.png"), PLAYER_ANIM_NUM, 45, PLAYER_WIDTH, PLAYER_HEIGHT);
     }
     ~Player()
     {
@@ -47,33 +46,33 @@ public:
         case WM_KEYDOWN:
             switch (msg.vkcode)
             {
-            case VK_UP:
+            case 'W':
                 is_move_up = true;
                 break;
-            case VK_DOWN:
+            case 'S':
                 is_move_down = true;
                 break;
-            case VK_LEFT:
+            case 'A':
                 is_move_left = true;
                 break;
-            case VK_RIGHT:
+            case 'D':
                 is_move_right = true;
                 break;
             }
-
+            break;
         case WM_KEYUP:
             switch (msg.vkcode)
             {
-            case VK_UP:
+            case 'W':
                 is_move_up = false;
                 break;
-            case VK_DOWN:
+            case 'S':
                 is_move_down = false;
                 break;
-            case VK_LEFT:
+            case 'A':
                 is_move_left = false;
                 break;
-            case VK_RIGHT:
+            case 'D':
                 is_move_right = false;
                 break;
             }
@@ -107,14 +106,15 @@ public:
     void Draw(int delta)
     {
         int pos_shadow_x = position.x + (PLAYER_WIDTH / 2 - SHADOW_WIDTH / 2);
-        int pos_shadow_y = position.y + (PLAYER_HEIGHT / 2 - 8);
+        int pos_shadow_y = position.y + (PLAYER_HEIGHT / 2 + 30);
         putimage_alpha(pos_shadow_x, pos_shadow_y, &img_shadow);
 
         static bool facing_left = false;
         int dir_x = is_move_right - is_move_left;
+        std::cout << dir_x << std::endl;
         if (dir_x < 0)
             facing_left = true;
-        else
+        else if (dir_x > 0)
             facing_left = false;
 
         if (facing_left)

@@ -2,14 +2,16 @@
 #define ANIMATION_H
 
 #include <easyx.h>
-//-lglut32 -lglu32 -lopengl32
+#include <vector>
+#include <iostream>
 
 #define PLAYER_ANIM_NUM 6
 
 // 批量处理图片
 IMAGE img_player[PLAYER_ANIM_NUM];
 // 修改图片为背景透明图片
-#pragma comment(lib, "MSImg32.lib")
+
+#pragma comment(lib, "msimg32.lib")
 inline void putimage_alpha(int x, int y, IMAGE *img)
 {
     size_t w = img->getwidth();
@@ -20,17 +22,24 @@ inline void putimage_alpha(int x, int y, IMAGE *img)
 
 class Animation
 {
+private:
+    int timer = 0;     // 动画计时器
+    int idx_frame = 0; // 动画帧索引
+    int interval_ms = 0;
+    std::vector<IMAGE *> frame_list;
+
 public:
-    Animation(LPCTSTR path, int num, int interval)
+    Animation(LPCTSTR path, int num, int interval, int width = 0, int height = 0)
     {
         interval_ms = interval;
         TCHAR path_file[256];
-        for (int i= 0; i < num; i++)
+        for (size_t i = 0; i < num; i++)
         {
-            _stprintf(path_file, path, i);
+            sprintf(path_file, path, i);
+            std::cout << path_file << std::endl;
 
             IMAGE *frame = new IMAGE();
-            loadimage(frame, path_file);
+            loadimage(frame, path_file, width, height);
             frame_list.push_back(frame);
         }
     }
@@ -52,12 +61,6 @@ public:
 
         putimage_alpha(x, y, frame_list[idx_frame]);
     }
-
-private:
-    int timer = 0;     // 动画计时器
-    int idx_frame = 0; // 动画帧索引
-    int interval_ms = 0;
-    std::vector<IMAGE *> frame_list;
 };
 
 #endif

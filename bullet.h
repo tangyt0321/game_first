@@ -16,7 +16,7 @@ public:
     {
         setfillcolor(RGB(255, 155, 50));
         setlinecolor(RGB(255, 75, 10));
-        fillcircle(position.x, position.y, 3);
+        fillcircle(position.x, position.y, RAIUS);
     }
 
 private:

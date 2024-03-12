@@ -7,20 +7,17 @@
       "args": [
         "-fdiagnostics-color=always",
         "-g",
-        // "${file}",
-        "${workspaceFolder}\\*.cpp",
+        "${file}",
+        // "${workspaceFolder}\\*.cpp",
         "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "${fileDirname}\\coin\\${fileBasenameNoExtension}.exe",
         "-fexec-charset=GBK",
-        // "-I",
-        // "C:\\Program Files \\EasyX\\include",
-        // "-L",
-        // "C:\\Program Files\\EasyX\\lib",
-        "-leasyx"
+        "-leasyx",
+        "-lmsimg32"
       ],
       "options": {
         // "cwd": "${fileDirname}"
-        "cwd": "C:Program Filesmingw64\\x86_64-w64-mingw32\\bin"
+        "cwd": "C:\\Program Files\\mingw64\\x86_64-w64-mingw32\\bin"
       },
       "problemMatcher": ["$gcc"],
       "group": {

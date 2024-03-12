@@ -5,8 +5,8 @@
 #include <cstring>
 #include <vector>
 
-//#include "scene.h"
-// #include "game_scene.h"
+// #include "scene.h"
+//  #include "game_scene.h"
 #include "animation.h"
 #include "player.h"
 // #include "menu_scene.h"
@@ -22,13 +22,13 @@ int main()
 
     const int FPS = 60;
 
-    initgraph(WINDOW_WIDTH, WINDOW_HEIGHT, 2);
-    cleardevice();
+    initgraph(WINDOW_WIDTH, WINDOW_HEIGHT);
+    setbkcolor(WHITE);
 
     bool running = true;
 
     IMAGE img_background;
-    loadimage(&img_background, _T("img/bkg/bkg.png"));
+    loadimage(&img_background, _T("img/bkg/bkg.png"), WINDOW_WIDTH, WINDOW_HEIGHT);
 
     BeginBatchDraw();
 
@@ -42,18 +42,20 @@ int main()
 
         while (peekmessage(&msg))
         {
-            //scene->on_input(msg);
+            // scene->on_input(msg);
             player.ProcessEvent(msg);
         }
 
-        //scene->on_update();
+        // scene->on_update();
 
         cleardevice();
 
         putimage(0, 0, &img_background);
-        player.Draw(1000 / 144);
 
-        //scene->on_draw();
+        player.Move();
+        player.Draw(1000 / 144);
+        // scene->on_draw();
+        
         FlushBatchDraw();
 
         // 帧率

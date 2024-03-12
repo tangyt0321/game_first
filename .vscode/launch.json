@@ -5,7 +5,7 @@
       "name": "C/C++: g++.exe 生成和调试活动文件",
       "type": "cppdbg",
       "request": "launch", //launch模式允许我们打断点进行调试，默认即可
-      "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+      "program": "${fileDirname}\\coin\\${fileBasenameNoExtension}.exe",
       "args": [], //（常用）程序(main函数)的入口参数
       "stopAtEntry": false, //在入口处暂停，选true相当于在入口处增加断点
       "cwd": "${fileDirname}",
