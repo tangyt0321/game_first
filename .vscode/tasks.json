@@ -10,11 +10,11 @@
         "${file}",
         // "${workspaceFolder}\\*.cpp",
         "-o",
-        "${fileDirname}\\coin\\${fileBasenameNoExtension}.exe",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe",
         "-fexec-charset=GBK",
         "-leasyx",
         "-lmsimg32",
-        "g++ -I include main.cpp other_file.cpp -o my_program"
+        // "g++ -Iinclude src/project.cpp -o my_program"
       ],
       "options": {
         // "cwd": "${fileDirname}"

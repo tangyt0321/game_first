@@ -5,11 +5,10 @@
 #include <cstring>
 #include <vector>
 
-// #include "scene.h"
-//  #include "game_scene.h"
-#include "Animation.h"
-#include "player/player.h"
-// #include "menu_scene.h"
+//  #include "include/game_scene.h"
+#include "include/Animation/Animation.h"
+#include "include/player/player.h"
+// #include "include/menu_scene.h"
 
 // 当前动画帧索引
 int idx_current_anim = 0;
@@ -28,7 +27,7 @@ int main()
     bool running = true;
 
     IMAGE img_background;
-    loadimage(&img_background, _T("img/bkg/bkg.png"), WINDOW_WIDTH, WINDOW_HEIGHT);
+    loadimage(&img_background, _T("resource/images/bkg/bkg.png"), WINDOW_WIDTH, WINDOW_HEIGHT);
 
     BeginBatchDraw();
 

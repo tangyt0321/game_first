@@ -2,7 +2,7 @@
 #define _PLAYER_H_
 
 #include <easyx.h>
-#include "Animation.h"
+#include "../Animation/Animation.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -29,9 +29,9 @@ private:
 public:
     Player()
     {
-        loadimage(&img_shadow, _T("img/player/shadow_player.png"), 50, 30);
-        anim_left = new Animation(_T("img/player/player_left_%d.png"), PLAYER_ANIM_NUM, 45, PLAYER_WIDTH, PLAYER_HEIGHT);
-        anim_right = new Animation(_T("img/player/player_right_%d.png"), PLAYER_ANIM_NUM, 45, PLAYER_WIDTH, PLAYER_HEIGHT);
+        loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
+        anim_left = new Animation(_T("resource/images/player/player_left_%d.png"), PLAYER_ANIM_NUM, 45, PLAYER_WIDTH, PLAYER_HEIGHT);
+        anim_right = new Animation(_T("resource/images/player/player_right_%d.png"), PLAYER_ANIM_NUM, 45, PLAYER_WIDTH, PLAYER_HEIGHT);
     }
     ~Player()
     {
