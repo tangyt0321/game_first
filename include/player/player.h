@@ -111,7 +111,6 @@ public:
 
         static bool facing_left = false;
         int dir_x = is_move_right - is_move_left;
-        std::cout << dir_x << std::endl;
         if (dir_x < 0)
             facing_left = true;
         else if (dir_x > 0)

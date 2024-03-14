@@ -2,7 +2,11 @@
 #define _MENU_SCENE_H_
 
 #include "scene.h"
+#include "scene_manager.h"
+
 #include <iostream>
+
+extern SceneManager scene_manager;
 
 class MenuScene : public Scene
 {
@@ -11,26 +15,30 @@ public:
     MenuScene() = default;
     ~MenuScene() = default;
 
-    virtual void on_enter()
+    void on_enter()
     {
         std::cout << "进入主菜单" << std::endl;
     }
 
-    virtual void update()
+    void on_update()
     {
         std::cout << "MenuScene update" << std::endl;
     }
 
-    virtual void draw()
+    void on_draw()
     {
         outtextxy(10, 10, _T("主菜单绘制内容"));
     }
 
-    virtual void on_input(const ExMessage &msg)
+    void on_input(const ExMessage &msg)
     {
+        if (msg.message == WM_KEYDOWN)
+        {
+            scene_manager.switch_scene(SceneManager::SceneType::Game);
+        }
     }
 
-    virtual void on_exit()
+    void on_exit()
     {
         std::cout << "MenuScene exit" << std::endl;
     }

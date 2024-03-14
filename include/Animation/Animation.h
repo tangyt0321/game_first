@@ -35,7 +35,6 @@ public:
         for (size_t i = 0; i < num; i++)
         {
             sprintf(path_file, path, i);
-            std::cout << path_file << std::endl;
 
             IMAGE *frame = new IMAGE();
             loadimage(frame, path_file, width, height);
