@@ -1,9 +1,5 @@
 #pragma once
 
-// #include "menu_scene.h"
-#include "game_scene.h"
-// #include "game_over_scene.h"
-#include "scene.h"
 
 extern Scene *menu_scene;
 extern Scene *game_scene;

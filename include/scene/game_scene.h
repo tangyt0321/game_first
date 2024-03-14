@@ -2,6 +2,11 @@
 #define _GAME_SCENE_H_
 
 #include "scene.h"
+#include "scene_manager.h"
+
+#include <iostream>
+
+extern SceneManager scene_manager;
 
 class GameScene : public Scene
 {
@@ -9,22 +14,29 @@ public:
     GameScene() = default;
     ~GameScene() = default;
 
-    virtual void on_enter()
+    void on_enter()
     {
         std::cout << "GameScene enter" << std::endl;
     }
-    virtual void on_update()
+
+    void on_update()
     {
         std::cout << "GameScene update" << std::endl;
     }
-    virtual void on_draw()
+
+    void on_draw()
     {
         std::cout << "GameScene draw" << std::endl;
     }
-    virtual void on_input(const ExMessage &msg)
+
+    void on_input(const ExMessage &msg)
     {
+        if (msg.message == WM_KEYDOWN )
+        {
+            scene_manager.switch_scene(SceneManager::SceneType::Menu);
+        } 
     }
-    virtual void on_exit()
+    void on_exit()
     {
     }
 };
