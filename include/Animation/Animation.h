@@ -33,7 +33,6 @@ public:
     Animation(Atlas *atlas, int interval)
     {
         interval_ms = interval;
-
         anim_atlas = atlas;
     }
 
@@ -47,7 +46,6 @@ public:
             timer = 0;
             idx_frame = (idx_frame + 1) % frame_list.size();
         }
-
         putimage_alpha(x, y, frame_list[idx_frame]);
     }
 };

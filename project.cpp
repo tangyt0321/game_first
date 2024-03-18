@@ -4,7 +4,7 @@
 #include <math.h>
 #include <cstring>
 
-#pragma comment(lib, "winmm.lib")
+// #pragma comment(lib, "winmm.lib")
 
 #include "load.h"
 
