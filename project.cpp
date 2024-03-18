@@ -2,7 +2,6 @@
 #include <conio.h>
 #include <easyx.h>
 #include <math.h>
-#include <cstring>
 
 // #pragma comment(lib, "winmm.lib")
 
@@ -18,7 +17,7 @@
 #include "include/scene/menu_scene.h"
 #include "include/scene/game_scene.h"
 
-// // 当前动画帧索引
+//  当前动画帧索引
 // int idx_current_anim = 0;
 
 Scene *menu_scene = nullptr;
@@ -39,7 +38,7 @@ int main()
 
     // 游戏开始判定
     bool running = true;
-    bool is_game_start = false;
+    // bool is_game_start = false;
 
     BeginBatchDraw();
 
@@ -76,10 +75,10 @@ int main()
             Sleep(1000 / FPS - frame_delta_time);
     }
 
-    EndBatchDraw();
-
     delete atlas_player_left;
     delete atlas_player_right;
+
+    EndBatchDraw();
 
     return 0;
 }

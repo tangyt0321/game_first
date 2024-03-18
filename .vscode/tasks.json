@@ -13,8 +13,7 @@
         "${fileDirname}\\${fileBasenameNoExtension}.exe",
         "-fexec-charset=GBK",
         "-leasyx",
-        "-lmsimg32",
-        // "-lwinmm"
+        "-lmsimg32"
       ],
       "options": {
         // "cwd": "${fileDirname}"
