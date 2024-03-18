@@ -3,10 +3,14 @@
 #include <easyx.h>
 #include <math.h>
 #include <cstring>
-#include <vector>
+
+#pragma comment(lib, "winmm.lib")
+
+#include "load.h"
 
 #include "include/Animation/Animation.h"
 #include "include/player/player.h"
+
 // #include "include/enemy/enemy.h"
 
 #include "include/scene/scene.h"
@@ -24,7 +28,6 @@ SceneManager scene_manager;
 
 int main()
 {
-
     ExMessage msg;
     Player player;
 
@@ -35,16 +38,13 @@ int main()
 
     // 游戏开始判定
     bool running = true;
-
-    // 加载桌面
-    // IMAGE img_background;
-    // loadimage(&img_background, _T("resource/images/bkg/bkg.png"), WINDOW_WIDTH, WINDOW_HEIGHT);
+    bool is_game_start = false;
 
     BeginBatchDraw();
 
     menu_scene = new MenuScene();
     game_scene = new GameScene();
-    //设置场景为主菜单场景
+    // 设置场景为主菜单场景
     scene_manager.set_current_scene(menu_scene);
 
     // 游戏总循环
@@ -62,11 +62,9 @@ int main()
 
         cleardevice();
 
-        // putimage(0, 0, &img_background);
-
+        scene_manager.on_draw();
         player.Move();
         player.Draw(1000 / 144);
-        scene_manager.on_draw();
 
         FlushBatchDraw();
 
@@ -78,6 +76,9 @@ int main()
     }
 
     EndBatchDraw();
+
+    delete atlas_player_left;
+    delete atlas_player_right;
 
     return 0;
 }

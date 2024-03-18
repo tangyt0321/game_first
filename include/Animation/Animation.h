@@ -4,11 +4,10 @@
 #include <easyx.h>
 #include <vector>
 #include <iostream>
-
-#define PLAYER_ANIM_NUM 6
+#include "Atlas.h"
 
 // 批量处理图片
-IMAGE img_player[PLAYER_ANIM_NUM];
+// IMAGE img_player[PLAYER_ANIM_NUM];
 // 修改图片为背景透明图片
 #pragma comment(lib, "msimg32.lib")
 inline void putimage_alpha(int x, int y, IMAGE *img)
@@ -27,26 +26,18 @@ private:
     int interval_ms = 0;
     std::vector<IMAGE *> frame_list;
 
+private:
+    Atlas *anim_atlas;
+
 public:
-    Animation(LPCTSTR path, int num, int interval, int width = 0, int height = 0)
+    Animation(Atlas *atlas, int interval)
     {
         interval_ms = interval;
-        TCHAR path_file[256];
-        for (size_t i = 0; i < num; i++)
-        {
-            sprintf(path_file, path, i);
 
-            IMAGE *frame = new IMAGE();
-            loadimage(frame, path_file, width, height);
-            frame_list.push_back(frame);
-        }
+        anim_atlas = atlas;
     }
 
-    ~Animation()
-    {
-        for (size_t i = 0; i < frame_list.size(); i++)
-            delete frame_list[i];
-    }
+    ~Animation() = default;
 
     void Play(int x, int y, int dalta)
     {

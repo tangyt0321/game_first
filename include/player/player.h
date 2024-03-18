@@ -6,14 +6,15 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
+#define PLAYER_ANIM_NUM 6
 
 class Player
 {
 
 private:
-    const int PLAYER_WIDTH = 80;  // 玩家宽度
-    const int PLAYER_HEIGHT = 80; // 玩家高度
-    const int SHADOW_WIDTH = 50;  // 阴影宽度
+    const int PLAYER_WIDTH = 80;        // 玩家宽度
+    const int PLAYER_HEIGHT = 80;       // 玩家高度
+    const int SHADOW_PLAYER_WIDTH = 50; // 阴影宽度
     const int PLAYER_SPEED = 10;
 
 private:
@@ -30,8 +31,8 @@ public:
     Player()
     {
         loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
-        anim_left = new Animation(_T("resource/images/player/player_left_%d.png"), PLAYER_ANIM_NUM, 45, PLAYER_WIDTH, PLAYER_HEIGHT);
-        anim_right = new Animation(_T("resource/images/player/player_right_%d.png"), PLAYER_ANIM_NUM, 45, PLAYER_WIDTH, PLAYER_HEIGHT);
+        anim_left = new Animation(_T("resource/images/player/player_left_%d.png"), 45);
+        anim_right = new Animation(_T("resource/images/player/player_right_%d.png"), 45);
     }
     ~Player()
     {
@@ -105,7 +106,7 @@ public:
 
     void Draw(int delta)
     {
-        int pos_shadow_x = position.x + (PLAYER_WIDTH / 2 - SHADOW_WIDTH / 2);
+        int pos_shadow_x = position.x + (PLAYER_WIDTH / 2 - SHADOW_PLAYER_WIDTH / 2);
         int pos_shadow_y = position.y + (PLAYER_HEIGHT / 2 + 30);
         putimage_alpha(pos_shadow_x, pos_shadow_y, &img_shadow);
 

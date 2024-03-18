@@ -17,17 +17,17 @@ public:
 
     void on_enter()
     {
-        std::cout << "进入主菜单" << std::endl;
+        // std::cout << "进入主菜单" << std::endl;
     }
 
     void on_update()
     {
-        std::cout << "MenuScene update" << std::endl;
+        // std::cout << "MenuScene update" << std::endl;
     }
 
     void on_draw()
     {
-        outtextxy(10, 10, _T("主菜单绘制内容"));
+        // outtextxy(10, 10, _T("主菜单绘制内容"));
     }
 
     void on_input(const ExMessage &msg)
@@ -40,7 +40,7 @@ public:
 
     void on_exit()
     {
-        std::cout << "MenuScene exit" << std::endl;
+        // std::cout << "MenuScene exit" << std::endl;
     }
 };
 
