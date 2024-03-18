@@ -30,6 +30,7 @@ int main()
 {
     ExMessage msg;
     Player player;
+    load_game_sources();
 
     const int FPS = 60;
     // 初始化桌面

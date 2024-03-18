@@ -14,8 +14,7 @@
         "-fexec-charset=GBK",
         "-leasyx",
         "-lmsimg32",
-        "-lwinmm"
-        // "g++ -Iinclude src/project.cpp -o my_program"
+        // "-lwinmm"
       ],
       "options": {
         // "cwd": "${fileDirname}"

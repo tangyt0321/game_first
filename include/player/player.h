@@ -11,7 +11,7 @@
 class Player
 {
 
-private:
+public:
     const int PLAYER_WIDTH = 80;        // 玩家宽度
     const int PLAYER_HEIGHT = 80;       // 玩家高度
     const int SHADOW_PLAYER_WIDTH = 50; // 阴影宽度
@@ -31,8 +31,8 @@ public:
     Player()
     {
         loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
-        anim_left = new Animation(_T("resource/images/player/player_left_%d.png"), 45);
-        anim_right = new Animation(_T("resource/images/player/player_right_%d.png"), 45);
+        anim_left = new Animation(atlas_player_left, 45);
+        anim_right = new Animation(atlas_player_right, 45);
     }
     ~Player()
     {
