@@ -27,9 +27,8 @@ SceneManager scene_manager;
 
 int main()
 {
-    ExMessage msg;
-    Player player;
     load_game_sources();
+    bool running = true;
 
     const int FPS = 60;
     // 初始化桌面
@@ -37,16 +36,17 @@ int main()
     setbkcolor(WHITE);
 
     // 游戏开始判定
-    bool running = true;
+
     // bool is_game_start = false;
-
+    ExMessage msg;
+    Player player;
     BeginBatchDraw();
-
+    // std::cout << "Hello World!\n";
     menu_scene = new MenuScene();
     game_scene = new GameScene();
     // 设置场景为主菜单场景
     scene_manager.set_current_scene(menu_scene);
-
+    // std::cout << "Hello World!\n";
     // 游戏总循环
     while (running)
     {

@@ -11,7 +11,7 @@
 class Player
 {
 
-public:
+private:
     const int PLAYER_WIDTH = 80;        // 玩家宽度
     const int PLAYER_HEIGHT = 80;       // 玩家高度
     const int SHADOW_PLAYER_WIDTH = 50; // 阴影宽度
@@ -109,7 +109,6 @@ public:
         int pos_shadow_x = position.x + (PLAYER_WIDTH / 2 - SHADOW_PLAYER_WIDTH / 2);
         int pos_shadow_y = position.y + (PLAYER_HEIGHT / 2 + 30);
         putimage_alpha(pos_shadow_x, pos_shadow_y, &img_shadow);
-
         static bool facing_left = false;
         int dir_x = is_move_right - is_move_left;
         if (dir_x < 0)
@@ -118,9 +117,14 @@ public:
             facing_left = false;
 
         if (facing_left)
+        {
             anim_left->Play(position.x, position.y, delta);
+        }
+
         else
+        {
             anim_right->Play(position.x, position.y, delta);
+        }
     }
 };
 
