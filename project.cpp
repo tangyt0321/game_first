@@ -85,7 +85,7 @@ int main()
         }
         // 检测子弹和敌人碰撞
         for (Enemy *enemy : enemy_list)
-        {   
+        {
             size_t i = 0;
             for (const Bullet *bullet : bullet_list)
             {
