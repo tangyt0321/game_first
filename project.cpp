@@ -85,15 +85,18 @@ int main()
         }
         // 检测子弹和敌人碰撞
         for (Enemy *enemy : enemy_list)
-        {
+        {   
+            size_t i = 0;
             for (const Bullet *bullet : bullet_list)
             {
                 if (enemy->CheckBulletConllision(bullet))
                 {
                     enemy->hurt();
-                    // bullet_list.erase(std::remove(bullet_list.begin(), bullet_list.end(), bullet), bullet_list.end());
-                    // enemy_list.pop_back();
+                    std::swap(bullet_list[i], bullet_list.back());
+                    bullet_list.pop_back();
+                    break;
                 }
+                i++;
             }
         }
         // 移除生命值归零的敌人

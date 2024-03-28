@@ -20,13 +20,13 @@ const int SHADOW_ENEMY_WIDTH = 48; // 阴影宽度
 
 class Enemy
 {
-public:
 private:
 	IMAGE img_enemy_shadow;
 	Animation *anim_left;
 	Animation *anim_right;
 	bool facing_left = false;
 	bool alive = true;
+	size_t HP = 10;
 
 public:
 	POINT position = {0, 0};
@@ -53,11 +53,9 @@ public:
 	bool CheckPlayerConllision(const Player &player)
 	{
 		POINT check_pos = {position.x + BOAR_WIDTH / 2, position.y + BOAR_HEIGHT / 2};
-		if (player.position.x < check_pos.x && player.position.x + player.PLAYER_WIDTH / 2 > check_pos.x &&
-			player.position.y < check_pos.y && player.position.y + player.PLAYER_HEIGHT / 2 > check_pos.y)
-			return true;
-		else
-			return false;
+		bool is_overlap_x = player.position.x < check_pos.x && player.position.x + player.PLAYER_WIDTH / 2 > check_pos.x;
+		bool is_overlap_y = player.position.y < check_pos.y && player.position.y + player.PLAYER_HEIGHT / 2 > check_pos.y;
+		return is_overlap_x && is_overlap_y;
 	}
 
 	// 子弹碰撞
@@ -70,7 +68,9 @@ public:
 
 	void hurt()
 	{
-		alive = false;
+		HP--;
+		if (HP <= 0)
+			alive = false;
 	}
 
 	bool isAlive()
