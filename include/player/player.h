@@ -10,22 +10,24 @@
 
 class Player
 {
-
-private:
+public:
     const int PLAYER_WIDTH = 80;        // 玩家宽度
     const int PLAYER_HEIGHT = 80;       // 玩家高度
     const int SHADOW_PLAYER_WIDTH = 50; // 阴影宽度
-    const int PLAYER_SPEED = 10;
+    const int PLAYER_SPEED = 7;
+    POINT position = {500, 500};
 
 private:
     IMAGE img_shadow;
     Animation *anim_left;
     Animation *anim_right;
-    POINT position = {500, 500};
+
     bool is_move_up = false;
     bool is_move_down = false;
     bool is_move_left = false;
     bool is_move_right = false;
+
+    bool alive = true;
 
 public:
     Player()
@@ -117,15 +119,27 @@ public:
             facing_left = false;
 
         if (facing_left)
-        {
             anim_left->Play(position.x, position.y, delta);
-        }
-
         else
-        {
             anim_right->Play(position.x, position.y, delta);
-        }
     }
+
+    void hurt()
+    {
+        alive = false;
+    }
+
+    bool isAlive()
+    {
+        return alive;
+    }
+
+    const POINT &GetPosition() const
+    {
+        return position;
+    }
+
+
 };
 
 #endif
