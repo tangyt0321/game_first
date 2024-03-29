@@ -30,7 +30,8 @@ public:
     }
 
     void on_draw()
-    {
+    { 
+        // 加载桌面
         setbkcolor(BLACK);
     }
 

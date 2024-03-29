@@ -15,7 +15,7 @@ class MenuScene : public Scene
 public:
     MenuScene()
     {
-        setbkcolor(WHITE);
+        // 加载桌面背景图片
     }
     ~MenuScene() = default;
 
