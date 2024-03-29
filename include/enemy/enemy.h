@@ -26,7 +26,7 @@ private:
 	Animation *anim_right;
 	bool facing_left = false;
 	bool alive = true;
-	size_t HP = 10;
+	size_t HP = 50;
 
 public:
 	POINT position = {0, 0};

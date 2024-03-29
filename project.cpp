@@ -6,6 +6,7 @@
 // #pragma comment(lib, "winmm.lib")
 
 #include "load.h"
+#include "delete.h"
 
 #include "include/Animation/Animation.h"
 
@@ -13,17 +14,22 @@
 #include "include/scene/scene_manager.h"
 #include "include/scene/menu_scene.h"
 #include "include/scene/game_scene.h"
-
-void shoot(std::vector<Enemy *> &enemy_list, const Player &player, std::vector<Bullet *> &bullet_list);
+#include "include/scene/gameover_scene.h"
 
 //  当前动画帧索引
 // int idx_current_anim = 0;
 
 Scene *menu_scene = nullptr;
 Scene *game_scene = nullptr;
+Scene *gameover_scene = nullptr;
 
 SceneManager scene_manager;
 
+// 游戏开始判定
+bool is_game_start = false;
+size_t score = 0;
+// 函数声明
+void shoot(std::vector<Enemy *> &enemy_list, const Player &player, std::vector<Bullet *> &bullet_list);
 void TryGenerateEnemy(std::vector<Enemy *> &enemy_list);
 
 int main()
@@ -34,11 +40,7 @@ int main()
     const int FPS = 60;
     // 初始化桌面
     initgraph(WINDOW_WIDTH, WINDOW_HEIGHT);
-    setbkcolor(WHITE);
 
-    // 游戏开始判定
-
-    // bool is_game_start = false;
     ExMessage msg;
     Player player;
     std::vector<Enemy *> enemy_list;
@@ -48,6 +50,8 @@ int main()
 
     menu_scene = new MenuScene();
     game_scene = new GameScene();
+    gameover_scene = new GameoverScene();
+
     // 设置场景为主菜单场景
     scene_manager.set_current_scene(menu_scene);
 
@@ -58,70 +62,87 @@ int main()
 
         while (peekmessage(&msg))
         {
-            scene_manager.on_input(msg);
-            player.ProcessEvent(msg);
-        }
-        // 全更新
-        scene_manager.on_update();
-        TryGenerateEnemy(enemy_list);
-        shoot(enemy_list, player, bullet_list);
-        // 全移动
-        player.Move();
-        for (Bullet *bullet : bullet_list)
-            bullet->Move();
-        for (Enemy *enemy : enemy_list)
-            enemy->Move(player);
-
-        // 检测敌人玩家碰撞
-        for (Enemy *enemy : enemy_list)
-        {
-            if (enemy->CheckPlayerConllision(player))
+            if (is_game_start)
             {
-                scene_manager.set_current_scene(menu_scene);
-                MessageBox(GetHWnd(), _T("游戏结束"), _T("游戏结束"), MB_OK);
-                running = false;
-                break;
+                player.ProcessEvent(msg);
             }
+            scene_manager.on_input(msg);
         }
-        // 检测子弹和敌人碰撞
-        for (Enemy *enemy : enemy_list)
+
+        if (is_game_start)
         {
-            size_t i = 0;
-            for (const Bullet *bullet : bullet_list)
+            // 全更新
+            scene_manager.on_update();
+            TryGenerateEnemy(enemy_list);
+            shoot(enemy_list, player, bullet_list);
+
+            // 全移动
+            player.Move();
+            for (Bullet *bullet : bullet_list)
+                bullet->Move();
+            for (Enemy *enemy : enemy_list)
+                enemy->Move(player);
+
+            // 全检测
+            // 检测敌人玩家碰撞
+            for (Enemy *enemy : enemy_list)
             {
-                if (enemy->CheckBulletConllision(bullet))
+                if (enemy->CheckPlayerConllision(player))
                 {
-                    enemy->hurt();
-                    std::swap(bullet_list[i], bullet_list.back());
-                    bullet_list.pop_back();
+                    scene_manager.set_current_scene(menu_scene);
+                    MessageBox(GetHWnd(), _T("游戏结束"), _T("游戏结束"), MB_OK);
+                    is_game_start = false;
                     break;
                 }
-                i++;
             }
-        }
-        // 移除生命值归零的敌人
-        for (size_t i = 0; i < enemy_list.size(); i++)
-        {
-            Enemy *enemy = enemy_list[i];
-            if (!enemy->isAlive())
+            // 检测子弹和敌人碰撞
+            for (Enemy *enemy : enemy_list)
             {
-                std::swap(enemy_list[i], enemy_list.back());
-                enemy_list.pop_back();
-                delete enemy;
+                size_t i = 0;
+                for (const Bullet *bullet : bullet_list)
+                {
+                    if (enemy->CheckBulletConllision(bullet))
+                    {
+                        enemy->hurt();
+                        score += 1;
+                        std::swap(bullet_list[i], bullet_list.back());
+                        bullet_list.pop_back();
+                        break;
+                    }
+                    i++;
+                }
             }
+            // 移除生命值归零的敌人
+            for (size_t i = 0; i < enemy_list.size(); i++)
+            {
+                Enemy *enemy = enemy_list[i];
+                if (!enemy->isAlive())
+                {
+                    std::swap(enemy_list[i], enemy_list.back());
+                    score += 100;
+                    enemy_list.pop_back();
+                    delete enemy;
+                }
+            }
+
+            cleardevice();
+
+            // 全绘制
+            scene_manager.on_draw();
+            player.Draw(1000 / 144);
+            for (Enemy *enemy : enemy_list)
+                enemy->Draw(1000 / 144);
+            for (Bullet *bullet : bullet_list)
+                bullet->Draw();
+        }
+        else
+        { // 全更新
+            scene_manager.on_update();
+            cleardevice();
+            scene_manager.on_draw();
         }
 
-        cleardevice();
-
-        // 全绘制
-        scene_manager.on_draw();
-        player.Draw(1000 / 144);
-        for (Enemy *enemy : enemy_list)
-            enemy->Draw(1000 / 144);
-        for (Bullet *bullet : bullet_list)
-            bullet->Draw();
         FlushBatchDraw();
-
         // 帧率
         DWORD frame_end_time = GetTickCount();
         DWORD frame_delta_time = frame_end_time - frame_start_time;
@@ -129,12 +150,9 @@ int main()
             Sleep(1000 / FPS - frame_delta_time);
     }
 
-    delete atlas_player_left;
-    delete atlas_player_right;
-    delete atlas_enemy_left;
-    delete atlas_enemy_right;
-
     EndBatchDraw();
+
+    delete_game_resources();
 
     return 0;
 }

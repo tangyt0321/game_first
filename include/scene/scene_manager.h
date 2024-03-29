@@ -1,8 +1,8 @@
 #pragma once
 
-
 extern Scene *menu_scene;
 extern Scene *game_scene;
+extern Scene *gameover_scene;
 
 class SceneManager
 {
@@ -11,7 +11,7 @@ public:
     {
         Menu,
         Game,
-        GameOver
+        GameOver,
     };
 
 public:
@@ -35,6 +35,9 @@ public:
         case SceneType::Game:
             current_Scene = game_scene;
             break;
+        case SceneType::GameOver:
+            current_Scene = gameover_scene;
+            break;
         default:
             break;
         }
@@ -54,6 +57,7 @@ public:
     void on_input(const ExMessage &msg)
     {
         current_Scene->on_input(msg);
+        current_Scene->on_enter();
     }
 
 private:

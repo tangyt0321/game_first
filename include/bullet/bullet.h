@@ -23,8 +23,8 @@ public:
         double distance = std::sqrt(dx * dx + dy * dy);
         if (distance >= 1)
         {
-            vx += (int)(dx / distance * BULLET_SPEED);
-            vy += (int)(dy / distance * BULLET_SPEED);
+            vx = (int)(dx / distance * BULLET_SPEED);
+            vy = (int)(dy / distance * BULLET_SPEED);
         }
     }
     ~Bullet() = default;

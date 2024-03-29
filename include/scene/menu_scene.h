@@ -7,12 +7,16 @@
 #include <iostream>
 
 extern SceneManager scene_manager;
+extern bool is_game_start;
 
 class MenuScene : public Scene
 {
 
 public:
-    MenuScene() = default;
+    MenuScene()
+    {
+        setbkcolor(WHITE);
+    }
     ~MenuScene() = default;
 
     void on_enter()
@@ -28,13 +32,25 @@ public:
     void on_draw()
     {
         // outtextxy(10, 10, _T("主菜单绘制内容"));
+        setbkcolor(WHITE);
     }
 
     void on_input(const ExMessage &msg)
     {
-        if (msg.message == WM_KEYDOWN)
+
+        switch (msg.message)
         {
-            scene_manager.switch_scene(SceneManager::SceneType::Game);
+        case WM_KEYDOWN:
+            switch (msg.vkcode)
+            {
+            case VK_SPACE:
+                std::cout << "切换到游戏场景" << std::endl;
+                scene_manager.switch_scene(SceneManager::SceneType::Game);
+                is_game_start = false;
+                break;
+            default:
+                break;
+            }
         }
     }
 
