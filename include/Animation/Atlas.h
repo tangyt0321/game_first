@@ -3,36 +3,75 @@
 #include <vector>
 #include <easyx.h>
 
-
 class Atlas
 {
 public:
-    std::vector<IMAGE *> frame_list;
+    std::vector<IMAGE> img_List;
 
 public:
-    Atlas(LPCTSTR path, int num, int width = 0, int height = 0)
+    Atlas() = default;
+    ~Atlas() = default;
+
+    // Atlas(LPCTSTR path, int num, int width = 0, int height = 0)
+    // {
+    //     TCHAR path_file[256];
+    //     for (size_t i = 0; i < num; i++)
+    //     {
+    //         sprintf(path_file, path, i);
+    //         IMAGE *frame = new IMAGE();
+    //         loadimage(frame, path_file, width, height);
+    //         img_List.push_back(frame);
+    //     }
+    // }
+    // ~Atlas()
+    // {
+    //     for (size_t i = 0; i < img_List.size(); i++)
+    //     {
+    //         delete img_List[i];
+    //     }
+    // }
+
+    void Load_from_file(LPCTSTR path_template, int num, int width = 0, int height = 0)
     {
+        img_List.clear();
+        img_List.reserve(num);
         TCHAR path_file[256];
         for (size_t i = 0; i < num; i++)
         {
-            sprintf(path_file, path, i);
-
-            IMAGE *frame = new IMAGE();
-            loadimage(frame, path_file, width, height);
-            frame_list.push_back(frame);
+            sprintf(path_file, path_template, i);
+            loadimage(&img_List[i], path_file, width, height);
         }
     }
 
-    ~Atlas()
+    void clear()
     {
-        for (size_t i = 0; i < frame_list.size(); i++)
-        {
-            delete frame_list[i];
-        }
+        img_List.clear();
+    }
+
+    int get_size()
+    {
+        return (int)img_List.size();
+    }
+
+    IMAGE *get_img(int index)
+    {
+        if (index < 0 || index >= img_List.size())
+            return nullptr;
+        return &img_List[index];
+    }
+
+    // IMAGE *operator[](int index)
+    // {
+    //     return img_List[index];
+    // }
+
+    void add_img(const IMAGE &img)
+    {
+        img_List.push_back(img);
     }
 };
 
-Atlas *atlas_player_left = nullptr;
-Atlas *atlas_player_right = nullptr;
-Atlas *atlas_enemy_left = nullptr;
-Atlas *atlas_enemy_right = nullptr;
+// Atlas *atlas_player_left = nullptr;
+// Atlas *atlas_player_right = nullptr;
+// Atlas *atlas_enemy_left = nullptr;
+// Atlas *atlas_enemy_right = nullptr;

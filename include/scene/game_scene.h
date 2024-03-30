@@ -3,6 +3,9 @@
 
 #include "scene.h"
 #include "scene_manager.h"
+#include "../player/player.h"
+#include "../enemy/enemy.h"
+#include "../bullet/bullet.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -11,6 +14,7 @@
 
 extern SceneManager scene_manager;
 extern bool is_game_start;
+extern size_t score;
 
 class GameScene : public Scene
 {
@@ -41,8 +45,13 @@ public:
 
     void on_draw()
     {
+        settextstyle(20, 10, "黑体"); // 设置字体样式和大小
+        settextcolor(BLACK);
         putimage(0, 0, &img_background);
-        // std::cout << "GameScene draw" << std::endl;
+        // 显示分数
+        std::string message = std::to_string(score);
+        outtextxy(50, 50, "你的分数：");
+        outtextxy(150, 50, message.c_str());
     }
 
     void on_input(const ExMessage &msg)

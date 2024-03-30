@@ -31,8 +31,14 @@ public:
 
     void on_draw()
     {
-        // outtextxy(10, 10, _T("主菜单绘制内容"));
+        settextstyle(50, 20, "黑体"); // 设置字体样式和大小
+        settextcolor(BLACK);
         setbkcolor(WHITE);
+        outtextxy(600, 300, "游戏");
+
+        settextstyle(20, 30, "宋体"); // 设置字体样式和大小
+        settextcolor(BLACK);
+        outtextxy(500, 600, "按空格开始");
     }
 
     void on_input(const ExMessage &msg)

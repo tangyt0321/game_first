@@ -3,19 +3,20 @@
 #include "easyx.h"
 
 // 图片垂直翻转函数
-void FlipImageVertically(IMAGE *src, IMAGE *dst)
+inline void FlipImageVertically(IMAGE *src, IMAGE *dst)
 {
-    if (src == nullptr || dst == nullptr)
+    int w = src->getwidth();
+    int h = src->getheight();
+    Resize(dst, w, h);
+    DWORD *src_buffer = GetImageBuffer(src);
+    DWORD *dst_buffer = GetImageBuffer(dst);
+    for (int y = 0; y < h; y++)
     {
-        return;
-    }
-
-    int width = src->getwidth();
-    int height = src->getheight();
-
-    // 逐行读取原图片，然后从下往上写入目标图片
-    for (int y = 0; y < height; y++)
-    {
-        getimage(dst, 0, height - y - 1, width, 1, src, 0, y, SRCCOPY);
+        for (int x = 0; x < w; x++)
+        {
+            int src_index = y * w + x;
+            int dst_index = y * w + (w - x - 1);
+            dst_buffer[dst_index] = src_buffer[src_index];
+        }
     }
 }

@@ -19,8 +19,6 @@ public:
 
 private:
     IMAGE img_shadow;
-    Animation *anim_left;
-    Animation *anim_right;
 
     bool is_move_up = false;
     bool is_move_down = false;
@@ -33,13 +31,20 @@ public:
     Player()
     {
         loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
-        anim_left = new Animation(atlas_player_left, 45);
-        anim_right = new Animation(atlas_player_right, 45);
+        Animation anim_left;
+        Animation anim_right;
+        anim_left.set_atlas(atlas_player_left);
+        anim_left.set_interval(45);
+        anim_left.set_atlas(atlas_player_right);
+        anim_right.set_interval(45);
+
+        // anim_left = new Animation(atlas_player_left, 45);
+        // anim_right = new Animation(atlas_player_right, 45);
     }
     ~Player()
     {
-        delete anim_left;
-        delete anim_right;
+        // delete anim_left;
+        // delete anim_right;
     }
 
     void ProcessEvent(const ExMessage &msg)
@@ -119,9 +124,15 @@ public:
             facing_left = false;
 
         if (facing_left)
-            anim_left->Play(position.x, position.y, delta);
+        {
+            anim_left->on_update(delta);
+            anim_left->on_draw(position.x, position.y);
+        }
         else
-            anim_right->Play(position.x, position.y, delta);
+        {
+            anim_right->on_update(delta);
+            anim_right->on_draw(position.x, position.y);
+        }
     }
 
     void hurt()
@@ -138,8 +149,6 @@ public:
     {
         return position;
     }
-
-
 };
 
 #endif

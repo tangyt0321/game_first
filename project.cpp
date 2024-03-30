@@ -10,18 +10,11 @@
 
 #include "include/Animation/Animation.h"
 
-#include "include/scene/scene.h"
-#include "include/scene/scene_manager.h"
-#include "include/scene/menu_scene.h"
-#include "include/scene/game_scene.h"
-#include "include/scene/gameover_scene.h"
+
 
 //  当前动画帧索引
 // int idx_current_anim = 0;
 
-Scene *menu_scene = nullptr;
-Scene *game_scene = nullptr;
-Scene *gameover_scene = nullptr;
 
 SceneManager scene_manager;
 
@@ -71,8 +64,9 @@ int main()
 
         if (is_game_start)
         {
-            // 全更新
             scene_manager.on_update();
+            // 全更新
+
             TryGenerateEnemy(enemy_list);
             shoot(enemy_list, player, bullet_list);
 

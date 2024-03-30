@@ -7,8 +7,8 @@
 
 void delete_game_resources()
 {
-    delete atlas_player_left;
-    delete atlas_player_right;
-    delete atlas_enemy_left;
-    delete atlas_enemy_right;
+    // delete atlas_player_left;
+    // delete atlas_player_right;
+    // delete atlas_enemy_left;
+    // delete atlas_enemy_right;
 }

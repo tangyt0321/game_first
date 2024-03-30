@@ -2,6 +2,9 @@
 #define _ANIMATION_H_
 
 #include "Atlas.h"
+#include "FlipImageVertically.h"
+
+#include <functional>
 
 // 批量处理图片
 // IMAGE img_player[PLAYER_ANIM_NUM];
@@ -18,33 +21,95 @@ inline void putimage_alpha(int x, int y, IMAGE *img)
 class Animation
 {
 private:
-    int timer = 0;     // 动画计时器
-    int idx_frame = 0; // 动画帧索引
-    int interval_ms = 0;
+    int timer = 0;       // 计时器
+    int idx_frame = 0;   // 动画帧索引
+    int interval_ms = 0; // 动画间隔时间
+    bool is_loop = true; // 是否循环播放
+    Atlas *atlas = nullptr;
+    std::function<void()> callback;
 
 private:
     Atlas *anim_atlas;
 
 public:
-    Animation(Atlas *atlas, int interval)
-    {
-        anim_atlas = atlas;
-        interval_ms = interval;
-    }
-
+    Animation() = default;
     ~Animation() = default;
 
-    void Play(int x, int y, int dalta)
+    void reset()
+    {
+        timer = 0;
+        idx_frame = 0;
+    }
+
+    void set_atlas(Atlas *new_atlas)
+    {
+        reset();
+        anim_atlas = new_atlas;
+    }
+
+    void set_loop(bool flag)
+    {
+        is_loop = flag;
+    }
+
+    void set_interval(int ms)
+    {
+        interval_ms = ms;
+    }
+
+    int get_idx_frame()
+    {
+        return idx_frame;
+    }
+
+    IMAGE *get_frame()
+    {
+        return anim_atlas->get_img(idx_frame);
+    }
+
+    bool check_end()
+    {
+        if (is_loop)
+            return false;
+        return (idx_frame == anim_atlas->get_size() - 1);
+    }
+
+    void on_update(int dalta)
     {
         timer += dalta;
         if (timer >= interval_ms)
         {
-            idx_frame = (idx_frame + 1) % anim_atlas->frame_list.size();
             timer = 0;
+            idx_frame++;
+            if (idx_frame >= anim_atlas->get_size())
+            {
+                idx_frame = is_loop ? 0 : anim_atlas->get_size() - 1;
+                if (is_loop && callback)
+                    callback();
+            }
         }
-
-        putimage_alpha(x, y, anim_atlas->frame_list[idx_frame]);
     }
+
+    void on_draw(int x, int y) const
+    {
+        putimage_alpha(x, y, anim_atlas->get_img(idx_frame));
+    }
+
+    void set_callback(std::function<void()> callback)
+    {
+        this->callback = callback;
+    }
+
+    // void Play(int x, int y, int dalta)
+    // {
+    //     timer += dalta;
+    //     if (timer >= interval_ms)
+    //     {
+    //         idx_frame = (idx_frame + 1) % anim_atlas->img_List.size();
+    //         timer = 0;
+    //     }
+    //     putimage_alpha(x, y, &(anim_atlas->img_List[idx_frame]));
+    // }
 };
 
 #endif

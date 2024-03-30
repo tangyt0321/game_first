@@ -22,8 +22,7 @@ class Enemy
 {
 private:
 	IMAGE img_enemy_shadow;
-	Animation *anim_left;
-	Animation *anim_right;
+	
 	bool facing_left = false;
 	bool alive = true;
 	size_t HP = 50;
@@ -35,8 +34,12 @@ public:
 	Enemy()
 	{
 		loadimage(&img_enemy_shadow, _T("resource/images/enemy/shadow_enemy.png"), 50, 30);
-		anim_left = new Animation(atlas_enemy_left, 45);
-		anim_right = new Animation(atlas_enemy_right, 45);
+		Animation anim_left;
+		Animation anim_right;
+		anim_left.set_atlas(atlas_enemy_left);
+		anim_left.set_interval(45);
+		anim_left.set_atlas(atlas_enemy_right);
+		anim_right.set_interval(45);
 
 		// 怪刷新位置
 		position.x = rand() % (WINDOW_WIDTH - BOAR_WIDTH);
@@ -45,8 +48,8 @@ public:
 
 	~Enemy()
 	{
-		delete anim_left;
-		delete anim_right;
+		// delete anim_left;
+		// delete anim_right;
 	}
 
 	// 玩家碰撞
@@ -107,9 +110,15 @@ public:
 		// int dir_x = is_move_right - is_move_left;
 
 		if (facing_left)
-			anim_left->Play(position.x, position.y, delta);
+		{
+			anim_left->on_update(delta);
+			anim_left->on_draw(position.x, position.y);
+		}
 		else
-			anim_right->Play(position.x, position.y, delta);
+		{
+			anim_right->on_update(delta);
+			anim_right->on_draw(position.x, position.y);
+		}
 	}
 };
 
