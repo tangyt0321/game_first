@@ -89,7 +89,7 @@ int main()
             {
                 if (enemy->CheckPlayerConllision(player))
                 {
-                    scene_manager.set_current_scene(menu_scene);
+                    scene_manager.set_current_scene(gameover_scene);
                     MessageBox(GetHWnd(), _T("游戏结束"), _T("游戏结束"), MB_OK);
                     is_game_start = false;
                     break;
