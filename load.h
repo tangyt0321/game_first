@@ -4,7 +4,7 @@
 #include "include/enemy/enemy.h"
 #include "include/bullet/bullet.h"
 
-#include "include/Animation/FlipImageVertically.h"
+#include "include/Animation/util.h"
 #include "include/Animation/Atlas.h"
 #include "include/Animation/Animation.h"
 
@@ -50,4 +50,5 @@ void load_game_sources()
     loadimage(&img_enemy_shadow, _T("resource/images/enemy/shadow_enemy.png"), 50, 30);
     atlas_enemy_right.Load_from_file(_T("resource/images/enemy/boar_right_%d.png"), BOAR_ANIM_NUM, BOAR_WIDTH, BOAR_HEIGHT);
     flip_image_vertically(atlas_enemy_right, atlas_enemy_left);
+    std::cout<<atlas_player_right.get_img(0)<<std::endl;
 }

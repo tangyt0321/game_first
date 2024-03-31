@@ -1,9 +1,6 @@
 #include <iostream>
 #include <conio.h>
-#include <easyx.h>
 #include <math.h>
-
-// #pragma comment(lib, "winmm.lib")
 
 #include "load.h"
 #include "delete.h"

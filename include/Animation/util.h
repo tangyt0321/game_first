@@ -20,3 +20,13 @@ inline void FlipImageVertically(IMAGE *src, IMAGE *dst)
         }
     }
 }
+
+// 修改图片为背景透明图片
+#pragma comment(lib, "msimg32.lib")
+inline void putimage_alpha(int dst_x, int dst_y, IMAGE *img)
+{
+    int width = img->getwidth();
+    int height = img->getheight();
+    AlphaBlend(GetImageHDC(GetWorkingImage()), dst_x, dst_y, width, height,
+               GetImageHDC(img), 0, 0, width, height, {AC_SRC_OVER, 0, 255, AC_SRC_ALPHA});
+}

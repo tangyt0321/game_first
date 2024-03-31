@@ -55,6 +55,7 @@ public:
 
     IMAGE *get_img(int index)
     {
+
         if (index < 0 || index >= img_List.size())
             return nullptr;
         return &img_List[index];

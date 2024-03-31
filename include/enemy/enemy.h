@@ -38,7 +38,7 @@ public:
 	{
 		anim_left.set_atlas(&atlas_enemy_left);
 		anim_left.set_interval(45);
-		anim_left.set_atlas(&atlas_enemy_right);
+		anim_right.set_atlas(&atlas_enemy_right);
 		anim_right.set_interval(45);
 
 		// 怪刷新位置

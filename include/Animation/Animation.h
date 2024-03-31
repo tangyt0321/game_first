@@ -2,20 +2,9 @@
 #define _ANIMATION_H_
 
 #include "Atlas.h"
-#include "FlipImageVertically.h"
+#include "util.h"
 
 #include <functional>
-
-
-// 修改图片为背景透明图片
-#pragma comment(lib, "msimg32.lib")
-inline void putimage_alpha(int x, int y, IMAGE *img)
-{
-    int w = img->getwidth();
-    int h = img->getheight();
-    AlphaBlend(GetImageHDC(NULL), x, y, w, h,
-               GetImageHDC(img), 0, 0, w, h, {AC_SRC_OVER, 0, 255, AC_SRC_ALPHA});
-}
 
 class Animation
 {
@@ -24,7 +13,6 @@ private:
     int idx_frame = 0;   // 动画帧索引
     int interval_ms = 0; // 动画间隔时间
     bool is_loop = true; // 是否循环播放
-    Atlas *atlas = nullptr;
     std::function<void()> callback;
 
 private:
