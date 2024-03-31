@@ -24,7 +24,7 @@ public:
         // std::cout << "进入主菜单" << std::endl;
     }
 
-    void on_update()
+    void on_update(int delta)
     {
         // std::cout << "MenuScene update" << std::endl;
     }

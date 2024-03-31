@@ -13,6 +13,8 @@
 #include <iostream>
 
 extern SceneManager scene_manager;
+// extern Animation anim_player;
+// extern Atlas atlas_player_right;
 extern bool is_game_start;
 extern size_t score;
 
@@ -32,15 +34,14 @@ public:
     void on_enter()
     {
         // std::cout << "GameScene enter" << std::endl;
-        Player player;
-        std::vector<Enemy *> enemy_list;
-        std::vector<Bullet *> bullet_list;
-        is_game_start = true;
+        // Player player;
+        // std::vector<Enemy *> enemy_list;
+        // std::vector<Bullet *> bullet_list;
     }
 
-    void on_update()
+    void on_update(int delta)
     {
-        // std::cout << "GameScene update" << std::endl;
+        // anim_player.on_update(delta);
     }
 
     void on_draw()
@@ -52,6 +53,9 @@ public:
         std::string message = std::to_string(score);
         outtextxy(50, 50, "你的分数：");
         outtextxy(150, 50, message.c_str());
+
+        // 显示玩家
+        // anim_player.on_draw(100, 100);
     }
 
     void on_input(const ExMessage &msg)

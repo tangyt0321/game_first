@@ -44,9 +44,9 @@ public:
         current_Scene->on_enter();
     }
 
-    void on_update()
+    void on_update(int delta_time)
     {
-        current_Scene->on_update();
+        current_Scene->on_update(delta_time);
     }
 
     void on_draw()

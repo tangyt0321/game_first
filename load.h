@@ -20,6 +20,8 @@ Scene *menu_scene = nullptr;
 Scene *game_scene = nullptr;
 Scene *gameover_scene = nullptr;
 
+IMAGE img_shadow;
+IMAGE img_enemy_shadow;
 Atlas atlas_player_left;
 Atlas atlas_player_right;
 Atlas atlas_enemy_left;
@@ -38,14 +40,14 @@ void flip_image_vertically(Atlas &src, Atlas &dst)
 
 void load_game_sources()
 {
-    const int PLAYER_WIDTH = 80;  // 玩家宽度
-    const int PLAYER_HEIGHT = 80; // 玩家高度
-    const int BOAR_WIDTH = 80;    // 敌人宽度
-    const int BOAR_HEIGHT = 80;   // 敌人高度
+    // 加载菜单背景
     loadimage(&img_menu_background, _T("resource/images/menu/menu_background.png"));
-
-    atlas_player_left.Load_from_file(_T("resource/images/player/player_left_%d.png"), PLAYER_ANIM_NUM, PLAYER_WIDTH, PLAYER_HEIGHT);
-    flip_image_vertically(atlas_player_left, atlas_player_right);
-    atlas_enemy_left.Load_from_file(_T("resource/images/enemy/boar_left_%d.png"), BOAR_ANIM_NUM, BOAR_WIDTH, BOAR_HEIGHT);
-    flip_image_vertically(atlas_enemy_left, atlas_enemy_right);
+    // 加载玩家动画
+    loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
+    atlas_player_right.Load_from_file(_T("resource/images/player/player_right_%d.png"), PLAYER_ANIM_NUM, PLAYER_WIDTH, PLAYER_HEIGHT);
+    flip_image_vertically(atlas_player_right, atlas_player_left);
+    // 加载敌人动画
+    loadimage(&img_enemy_shadow, _T("resource/images/enemy/shadow_enemy.png"), 50, 30);
+    atlas_enemy_right.Load_from_file(_T("resource/images/enemy/boar_right_%d.png"), BOAR_ANIM_NUM, BOAR_WIDTH, BOAR_HEIGHT);
+    flip_image_vertically(atlas_enemy_right, atlas_enemy_left);
 }

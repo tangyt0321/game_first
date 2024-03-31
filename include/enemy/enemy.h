@@ -9,13 +9,14 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define BOAR_ANIM_NUM 6
 
 extern Player player;
 extern Atlas atlas_enemy_left;
 extern Atlas atlas_enemy_right;
+extern IMAGE img_enemy_shadow;
 
 const int SPEED = 2;
+const int BOAR_ANIM_NUM = 6;
 const int BOAR_WIDTH = 80;		   // 野猪宽度
 const int BOAR_HEIGHT = 80;		   // 野猪高度
 const int SHADOW_ENEMY_WIDTH = 48; // 阴影宽度
@@ -23,7 +24,6 @@ const int SHADOW_ENEMY_WIDTH = 48; // 阴影宽度
 class Enemy
 {
 private:
-	IMAGE img_enemy_shadow;
 	Animation anim_left;
 	Animation anim_right;
 	bool facing_left = false;
@@ -36,8 +36,6 @@ public:
 public:
 	Enemy()
 	{
-		loadimage(&img_enemy_shadow, _T("resource/images/enemy/shadow_enemy.png"), 50, 30);
-
 		anim_left.set_atlas(&atlas_enemy_left);
 		anim_left.set_interval(45);
 		anim_left.set_atlas(&atlas_enemy_right);
@@ -48,11 +46,7 @@ public:
 		position.y = rand() % (WINDOW_HEIGHT - BOAR_HEIGHT);
 	}
 
-	~Enemy()
-	{
-		// delete anim_left;
-		// delete anim_right;
-	}
+	~Enemy() = default;
 
 	// 玩家碰撞
 	bool CheckPlayerConllision(const Player &player)

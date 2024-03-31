@@ -36,7 +36,7 @@ public:
         img_List.clear();
         img_List.resize(num);
         TCHAR path_file[256];
-        for (size_t i = 0; i < num; i++)
+        for (int i = 0; i < num; i++)
         {
             sprintf(path_file, path_template, i);
             loadimage(&img_List[i], path_file, width, height);

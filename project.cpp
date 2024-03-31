@@ -10,9 +10,6 @@
 
 #include "include/Animation/Animation.h"
 
-//  当前动画帧索引
-// int idx_current_anim = 0;
-
 SceneManager scene_manager;
 
 // 游戏开始判定
@@ -52,19 +49,31 @@ int main()
 
         while (peekmessage(&msg))
         {
-            if (is_game_start)
+            switch (scene_manager.get_current_scene_type())
             {
+            case SceneManager::SceneType::Menu:
+                break;
+            case SceneManager::SceneType::Game:
                 player.ProcessEvent(msg);
+                break;
+            case SceneManager::SceneType::GameOver:
+                break;
             }
             scene_manager.on_input(msg);
         }
+
+        static DWORD last_tick_time = GetTickCount();
+        DWORD current_tick_time = GetTickCount();
+        DWORD delta_time = current_tick_time - last_tick_time;
+        scene_manager.on_update(delta_time);
+        last_tick_time = current_tick_time;
 
         switch (scene_manager.get_current_scene_type())
         {
         case SceneManager::SceneType::Menu:
         {
             // 全更新
-            scene_manager.on_update();
+            scene_manager.on_update(delta_time);
             cleardevice();
             scene_manager.on_draw();
         }
@@ -72,14 +81,14 @@ int main()
         case SceneManager::SceneType::GameOver:
         {
             // 全更新
-            scene_manager.on_update();
+            scene_manager.on_update(delta_time);
             cleardevice();
             scene_manager.on_draw();
         }
         break;
         case SceneManager::SceneType::Game:
         {
-            scene_manager.on_update();
+            scene_manager.on_update(delta_time);
             // 全更新
             TryGenerateEnemy(enemy_list);
             shoot(enemy_list, player, bullet_list);
@@ -145,7 +154,7 @@ int main()
         }
         break;
         }
-        
+
         FlushBatchDraw();
         // 帧率
         DWORD frame_end_time = GetTickCount();

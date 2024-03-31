@@ -6,22 +6,25 @@
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
-#define PLAYER_ANIM_NUM 6
 
 extern Atlas atlas_player_left;
 extern Atlas atlas_player_right;
+extern IMAGE img_shadow;
+
+const int PLAYER_ANIM_NUM = 6;
+const int PLAYER_WIDTH = 80;  // 玩家宽度
+const int PLAYER_HEIGHT = 80; // 玩家高度
 
 class Player
 {
 public:
+    const int SHADOW_PLAYER_WIDTH = 50; // 阴影宽度
     const int PLAYER_WIDTH = 80;        // 玩家宽度
     const int PLAYER_HEIGHT = 80;       // 玩家高度
-    const int SHADOW_PLAYER_WIDTH = 50; // 阴影宽度
     const int PLAYER_SPEED = 7;
     POINT position = {500, 500};
 
 private:
-    IMAGE img_shadow;
     Animation anim_left;
     Animation anim_right;
     bool is_move_up = false;
@@ -34,20 +37,12 @@ private:
 public:
     Player()
     {
-        loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
         anim_left.set_atlas(&atlas_player_left);
         anim_left.set_interval(45);
         anim_left.set_atlas(&atlas_player_right);
         anim_right.set_interval(45);
-
-        // anim_left = new Animation(atlas_player_left, 45);
-        // anim_right = new Animation(atlas_player_right, 45);
     }
-    ~Player()
-    {
-        // delete anim_left;
-        // delete anim_right;
-    }
+    ~Player() = default;
 
     void ProcessEvent(const ExMessage &msg)
     {
