@@ -10,17 +10,16 @@
 
 #include "include/Animation/Animation.h"
 
-
-
 //  当前动画帧索引
 // int idx_current_anim = 0;
-
 
 SceneManager scene_manager;
 
 // 游戏开始判定
 bool is_game_start = false;
+bool running = true;
 size_t score = 0;
+
 // 函数声明
 void shoot(std::vector<Enemy *> &enemy_list, const Player &player, std::vector<Bullet *> &bullet_list);
 void TryGenerateEnemy(std::vector<Enemy *> &enemy_list);
@@ -28,8 +27,6 @@ void TryGenerateEnemy(std::vector<Enemy *> &enemy_list);
 int main()
 {
     load_game_sources();
-    bool running = true;
-
     const int FPS = 60;
     // 初始化桌面
     initgraph(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -62,11 +59,28 @@ int main()
             scene_manager.on_input(msg);
         }
 
-        if (is_game_start)
+        switch (scene_manager.get_current_scene_type())
+        {
+        case SceneManager::SceneType::Menu:
+        {
+            // 全更新
+            scene_manager.on_update();
+            cleardevice();
+            scene_manager.on_draw();
+        }
+        break;
+        case SceneManager::SceneType::GameOver:
+        {
+            // 全更新
+            scene_manager.on_update();
+            cleardevice();
+            scene_manager.on_draw();
+        }
+        break;
+        case SceneManager::SceneType::Game:
         {
             scene_manager.on_update();
             // 全更新
-
             TryGenerateEnemy(enemy_list);
             shoot(enemy_list, player, bullet_list);
 
@@ -129,13 +143,9 @@ int main()
             for (Bullet *bullet : bullet_list)
                 bullet->Draw();
         }
-        else
-        { // 全更新
-            scene_manager.on_update();
-            cleardevice();
-            scene_manager.on_draw();
+        break;
         }
-
+        
         FlushBatchDraw();
         // 帧率
         DWORD frame_end_time = GetTickCount();

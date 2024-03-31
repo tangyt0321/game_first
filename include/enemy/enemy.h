@@ -12,6 +12,8 @@
 #define BOAR_ANIM_NUM 6
 
 extern Player player;
+extern Atlas atlas_enemy_left;
+extern Atlas atlas_enemy_right;
 
 const int SPEED = 2;
 const int BOAR_WIDTH = 80;		   // 野猪宽度
@@ -22,7 +24,8 @@ class Enemy
 {
 private:
 	IMAGE img_enemy_shadow;
-	
+	Animation anim_left;
+	Animation anim_right;
 	bool facing_left = false;
 	bool alive = true;
 	size_t HP = 50;
@@ -34,11 +37,10 @@ public:
 	Enemy()
 	{
 		loadimage(&img_enemy_shadow, _T("resource/images/enemy/shadow_enemy.png"), 50, 30);
-		Animation anim_left;
-		Animation anim_right;
-		anim_left.set_atlas(atlas_enemy_left);
+
+		anim_left.set_atlas(&atlas_enemy_left);
 		anim_left.set_interval(45);
-		anim_left.set_atlas(atlas_enemy_right);
+		anim_left.set_atlas(&atlas_enemy_right);
 		anim_right.set_interval(45);
 
 		// 怪刷新位置
@@ -111,13 +113,13 @@ public:
 
 		if (facing_left)
 		{
-			anim_left->on_update(delta);
-			anim_left->on_draw(position.x, position.y);
+			anim_left.on_update(delta);
+			anim_left.on_draw(position.x, position.y);
 		}
 		else
 		{
-			anim_right->on_update(delta);
-			anim_right->on_draw(position.x, position.y);
+			anim_right.on_update(delta);
+			anim_right.on_draw(position.x, position.y);
 		}
 	}
 };
