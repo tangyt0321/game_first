@@ -26,6 +26,7 @@ public:
 
     void on_draw()
     {
+        std::cout << "MenuScene draw" << std::endl;
         settextstyle(50, 20, "黑体"); // 设置字体样式和大小
         settextcolor(BLACK);
         setbkcolor(WHITE);
@@ -41,7 +42,7 @@ public:
 
         switch (msg.message)
         {
-        case WM_KEYDOWN:
+        case WM_KEYUP:
             switch (msg.vkcode)
             {
             case VK_SPACE:

@@ -20,6 +20,7 @@ Scene *menu_scene = nullptr;
 Scene *game_scene = nullptr;
 Scene *gameover_scene = nullptr;
 
+IMAGE img_background;
 IMAGE img_shadow;
 IMAGE img_enemy_shadow;
 Atlas atlas_player_left;

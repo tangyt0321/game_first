@@ -14,6 +14,7 @@
 
 extern bool is_game_start;
 extern size_t score;
+extern IMAGE img_background;
 
 extern Player player;
 extern std::vector<Enemy *> enemy_list;
@@ -28,8 +29,6 @@ void TryGenerateEnemy(std::vector<Enemy *> &enemy_list);
 class GameScene : public Scene
 {
 private:
-    IMAGE img_background;
-
 public:
     GameScene()
     {
@@ -100,6 +99,7 @@ public:
 
     void on_draw()
     {
+        // 绘制背景
         settextstyle(20, 10, "黑体"); // 设置字体样式和大小
         settextcolor(BLACK);
         putimage(0, 0, &img_background);
@@ -108,9 +108,7 @@ public:
         outtextxy(50, 50, "你的分数：");
         outtextxy(150, 50, message.c_str());
 
-        // 显示玩家
-        // 全绘制
-        scene_manager.on_draw();
+        // 显示玩家和敌人
         player.Draw(1000 / 144);
         for (Enemy *enemy : enemy_list)
             enemy->Draw(1000 / 144);
