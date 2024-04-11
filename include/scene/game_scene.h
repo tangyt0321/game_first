@@ -15,13 +15,6 @@
 extern bool is_game_start;
 extern size_t score;
 
-extern IMAGE img_shadow;
-extern IMAGE img_enemy_shadow;
-extern Atlas atlas_player_left;
-extern Atlas atlas_player_right;
-extern Atlas atlas_enemy_left;
-extern Atlas atlas_enemy_right;
-
 extern Player player;
 extern std::vector<Enemy *> enemy_list;
 extern std::vector<Bullet *> bullet_list;

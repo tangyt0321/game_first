@@ -21,6 +21,7 @@ int main()
     // 初始化桌面
     initgraph(WINDOW_WIDTH, WINDOW_HEIGHT);
 
+
     ExMessage msg;
     Player player;
     std::vector<Enemy *> enemy_list;
