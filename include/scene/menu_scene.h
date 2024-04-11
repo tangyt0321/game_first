@@ -13,20 +13,15 @@ class MenuScene : public Scene
 {
 
 public:
-    MenuScene()
-    {
-        // 加载桌面背景图片
-    }
+    MenuScene() = default;
     ~MenuScene() = default;
 
     void on_enter()
     {
-        // std::cout << "进入主菜单" << std::endl;
     }
 
     void on_update(int delta)
     {
-        // std::cout << "MenuScene update" << std::endl;
     }
 
     void on_draw()
