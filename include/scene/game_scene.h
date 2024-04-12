@@ -125,10 +125,8 @@ public:
             switch (msg.vkcode)
             {
             case VK_ESCAPE:
-                std::cout << "GameScene exit" << std::endl;
                 scene_manager.switch_scene(SceneManager::SceneType::GameOver);
                 is_game_start = false;
-                on_exit();
                 break;
             case 'P':
                 std::cout << "GameScene pause" << std::endl;
@@ -146,22 +144,16 @@ public:
     {
         // 释放内存
         if (!enemy_list.empty())
-            for (Enemy *enemy : enemy_list)
-            {
-                delete enemy;
-            }
+            enemy_list.clear();
         if (!bullet_list.empty())
-            for (Bullet *bullet : bullet_list)
-            {
-                delete bullet;
-            }
+            bullet_list.clear();
     }
 };
 
 // 敌人刷新
 void TryGenerateEnemy(std::vector<Enemy *> &enemy_list)
 {
-    const int ENEMY_GENERATE_PROBABILITY = 100;
+    const int ENEMY_GENERATE_PROBABILITY = 10;
     static int counter = 0;
     if ((++counter) % ENEMY_GENERATE_PROBABILITY == 0)
     {

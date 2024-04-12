@@ -14,10 +14,6 @@ bool is_game_start = false;
 bool running = true;
 size_t score = 0;
 
-Player player;
-std::vector<Enemy *> enemy_list;
-std::vector<Bullet *> bullet_list;
-
 int main()
 {
     load_game_sources();

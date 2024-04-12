@@ -15,7 +15,6 @@ extern Atlas atlas_enemy_left;
 extern Atlas atlas_enemy_right;
 extern IMAGE img_enemy_shadow;
 
-const int SPEED = 2;
 const int BOAR_ANIM_NUM = 6;
 const int BOAR_WIDTH = 80;		   // 野猪宽度
 const int BOAR_HEIGHT = 80;		   // 野猪高度
@@ -28,7 +27,8 @@ private:
 	Animation anim_right;
 	bool facing_left = false;
 	bool alive = true;
-	size_t HP = 50;
+	size_t HP = 5;
+	const int SPEED = 4;
 
 public:
 	POINT position = {0, 0};

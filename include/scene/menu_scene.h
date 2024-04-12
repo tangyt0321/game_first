@@ -26,7 +26,6 @@ public:
 
     void on_draw()
     {
-        std::cout << "MenuScene draw" << std::endl;
         settextstyle(50, 20, "黑体"); // 设置字体样式和大小
         settextcolor(BLACK);
         setbkcolor(WHITE);
@@ -58,7 +57,6 @@ public:
 
     void on_exit()
     {
-        // std::cout << "MenuScene exit" << std::endl;
     }
 };
 

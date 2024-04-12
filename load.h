@@ -28,6 +28,10 @@ Atlas atlas_player_right;
 Atlas atlas_enemy_left;
 Atlas atlas_enemy_right;
 
+Player player;
+std::vector<Enemy *> enemy_list;
+std::vector<Bullet *> bullet_list;
+
 void flip_image_vertically(Atlas &src, Atlas &dst)
 {
     dst.clear();
@@ -51,5 +55,5 @@ void load_game_sources()
     loadimage(&img_enemy_shadow, _T("resource/images/enemy/shadow_enemy.png"), 50, 30);
     atlas_enemy_right.Load_from_file(_T("resource/images/enemy/boar_right_%d.png"), BOAR_ANIM_NUM, BOAR_WIDTH, BOAR_HEIGHT);
     flip_image_vertically(atlas_enemy_right, atlas_enemy_left);
-    std::cout<<atlas_player_right.get_img(0)<<std::endl;
+    std::cout << atlas_player_right.get_img(0) << std::endl;
 }
