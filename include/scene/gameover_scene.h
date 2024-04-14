@@ -3,8 +3,8 @@
 #include "scene.h"
 #include "scene_manager.h"
 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
 
 #include <iostream>
 

@@ -4,8 +4,9 @@
 #include <easyx.h>
 #include "../Animation/Animation.h"
 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
+
 
 extern Atlas atlas_player_left;
 extern Atlas atlas_player_right;
@@ -23,6 +24,8 @@ public:
     const int PLAYER_HEIGHT = 80;       // 玩家高度
     const int PLAYER_SPEED = 7;
     POINT position = {500, 500};
+    size_t HP = 5;
+    bool alive = true;
 
 private:
     Animation anim_left;
@@ -32,7 +35,7 @@ private:
     bool is_move_left = false;
     bool is_move_right = false;
 
-    bool alive = true;
+
 
 public:
     Player()
@@ -134,7 +137,9 @@ public:
 
     void hurt()
     {
-        alive = false;
+        HP--;
+        if (HP <= 0)
+            alive = false;
     }
 
     bool isAlive()

@@ -60,18 +60,6 @@ public:
         current_Scene->on_enter();
     }
 
-    // SceneType get_current_scene_type() const
-    // {
-    //     if (current_Scene == menu_scene)
-    //         return SceneType::Menu;
-    //     else if (current_Scene == game_scene)
-    //         return SceneType::Game;
-    //     else if (current_Scene == gameover_scene)
-    //         return SceneType::GameOver;
-    //     else
-    //         return SceneType::Menu;
-    // }
-
 private:
     Scene *current_Scene = nullptr;
 };

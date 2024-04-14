@@ -4,11 +4,12 @@
 #include "scene.h"
 #include "scene_manager.h"
 #include "../player/player.h"
-#include "../enemy/enemy.h"
+#include "../enemy/enemy_boar.h"
+#include "../enemy/enemy_knight.h"
 #include "../bullet/bullet.h"
 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
 
 #include <iostream>
 
@@ -39,6 +40,9 @@ public:
 
     void on_enter()
     {
+        // 初始化玩家
+        player.alive = true;
+        player.HP = 100;
     }
 
     void on_update(int delta)
