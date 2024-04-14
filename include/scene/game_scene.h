@@ -67,7 +67,7 @@ public:
                 player.hurt();
                 if (player.isAlive() == false)
                 {
-                    scene_manager.set_current_scene(gameover_scene);
+                    scene_manager.switch_scene(SceneManager::SceneType::GameOver);
                     // MessageBox(GetHWnd(), _T("游戏结束"), _T("游戏结束"), MB_OK);
                     is_game_start = false;
                     break;

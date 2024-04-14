@@ -60,7 +60,6 @@ public:
     void on_input(const ExMessage &msg)
     {
         current_Scene->on_input(msg);
-        current_Scene->on_enter();
     }
 
 private:
