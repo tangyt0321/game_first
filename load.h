@@ -5,6 +5,7 @@
 
 #include "include/enemy/enemy_boar.h"
 #include "include/enemy/enemy_knight.h"
+#include "include/enemy/enemy_manager.h"
 
 #include "include/Animation/util.h"
 #include "include/Animation/Atlas.h"

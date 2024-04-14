@@ -12,6 +12,9 @@ public:
         Menu,
         Game,
         GameOver,
+        upgrade,
+        shop,
+        setting,
     };
 
 public:

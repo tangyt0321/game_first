@@ -1,7 +1,7 @@
-#ifndef _ENEMY_
-#define _ENEMY_
+#pragma once
 
 #include "enemy.h"
+#include <vector>
 
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
@@ -109,5 +109,3 @@ public:
 		}
 	}
 };
-
-#endif

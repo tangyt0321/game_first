@@ -4,8 +4,7 @@
 #include "scene.h"
 #include "scene_manager.h"
 #include "../player/player.h"
-#include "../enemy/enemy_boar.h"
-#include "../enemy/enemy_knight.h"
+#include "../enemy/enemy_manager.h"
 #include "../bullet/bullet.h"
 
 extern int WINDOW_WIDTH;
@@ -22,10 +21,11 @@ extern std::vector<Enemy *> enemy_list;
 extern std::vector<Bullet *> bullet_list;
 
 extern SceneManager scene_manager;
+extern EnemyManager enemy_manager;
 
 // 函数声明
 void shoot(std::vector<Enemy *> &enemy_list, const Player &player, std::vector<Bullet *> &bullet_list);
-void TryGenerateEnemy(std::vector<Enemy *> &enemy_list);
+void TryGenerateEnemy();
 
 class GameScene : public Scene
 {
@@ -48,7 +48,7 @@ public:
     void on_update(int delta)
     {
         // 全更新
-        TryGenerateEnemy(enemy_list);
+        TryGenerateEnemy();
         shoot(enemy_list, player, bullet_list);
 
         // 全移动
@@ -64,10 +64,14 @@ public:
         {
             if (enemy->CheckPlayerConllision(player))
             {
-                scene_manager.set_current_scene(gameover_scene);
-                MessageBox(GetHWnd(), _T("游戏结束"), _T("游戏结束"), MB_OK);
-                is_game_start = false;
-                break;
+                player.hurt();
+                if (player.isAlive() == false)
+                {
+                    scene_manager.set_current_scene(gameover_scene);
+                    // MessageBox(GetHWnd(), _T("游戏结束"), _T("游戏结束"), MB_OK);
+                    is_game_start = false;
+                    break;
+                }
             }
         }
         // 检测子弹和敌人碰撞
@@ -111,6 +115,10 @@ public:
         std::string message = std::to_string(score);
         outtextxy(50, 50, "你的分数：");
         outtextxy(150, 50, message.c_str());
+        // 显示玩家生命值
+        std::string HP_message = std::to_string(player.HP);
+        outtextxy(50, 100, "你的生命值：");
+        outtextxy(150, 100, HP_message.c_str());
 
         // 显示玩家和敌人
         player.Draw(1000 / 144);
@@ -155,13 +163,14 @@ public:
 };
 
 // 敌人刷新
-void TryGenerateEnemy(std::vector<Enemy *> &enemy_list)
+void TryGenerateEnemy()
 {
     const int ENEMY_GENERATE_PROBABILITY = 10;
     static int counter = 0;
     if ((++counter) % ENEMY_GENERATE_PROBABILITY == 0)
     {
-        enemy_list.push_back(new Enemy());
+        enemy_manager.add_enemy_boar();
+        // enemy_manager.add_enemy_knight();
     }
 }
 

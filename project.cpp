@@ -7,10 +7,12 @@
 
 #include "include/Animation/Animation.h"
 
-const int WINDOW_WIDTH = 1280;
-const int WINDOW_HEIGHT = 720;
+int WINDOW_WIDTH = 1280;
+int WINDOW_HEIGHT = 720;
 
 SceneManager scene_manager;
+EnemyManager enemy_manager;
+// BulletManager bullet_manager;
 
 // 游戏开始判定
 bool is_game_start = false;
@@ -30,7 +32,7 @@ int main()
 
     menu_scene = new MenuScene();
     game_scene = new GameScene();
-    upgrade_scene = new UpgradeScene();
+    // upgrade_scene = new UpgradeScene();
     gameover_scene = new GameoverScene();
 
     // 设置场景为主菜单场景
