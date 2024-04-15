@@ -2,6 +2,10 @@
 #define _BULLET_H_
 
 #include <easyx.h>
+#include <ctime>
+#include <cmath>
+
+extern int random_id;
 
 class Bullet
 {
@@ -18,8 +22,10 @@ public:
         position.y = player_pos.y + player.PLAYER_HEIGHT / 2;
 
         // 计算子弹朝向目标的初始速度
-        int dx = targetX - position.x;
-        int dy = targetY - position.y;
+        srand(random_id);
+        int dx = targetX - position.x + sin(rand() % 360) * 20 - 10;
+        int dy = targetY - position.y + cos(rand() % 360) * 20 - 10;
+
         double distance = std::sqrt(dx * dx + dy * dy);
         if (distance >= 1)
         {
@@ -45,7 +51,7 @@ public:
 
 private:
     const float BULLET_SPEED = 30; // 子弹速度常量
-    const int RADIUS = 2;
+    const int RADIUS = 5;
 };
 
 #endif

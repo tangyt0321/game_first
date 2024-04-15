@@ -5,6 +5,7 @@
 
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
+extern int random_id;
 
 extern Atlas atlas_enemy_boar_left;
 extern Atlas atlas_enemy_boar_right;
@@ -21,8 +22,8 @@ private:
 	Animation anim_left;
 	Animation anim_right;
 	bool facing_left = false;
-	bool alive = true;
-	size_t HP = 5;
+	bool is_alive = true;
+	size_t HP = 1;
 	const int SPEED = 4;
 
 public:
@@ -34,6 +35,7 @@ public:
 		anim_right.set_interval(45);
 
 		// 怪刷新位置
+		srand(random_id);
 		position.x = rand() % (WINDOW_WIDTH - BOAR_WIDTH);
 		position.y = rand() % (WINDOW_HEIGHT - BOAR_HEIGHT);
 	}
@@ -61,12 +63,12 @@ public:
 	{
 		HP--;
 		if (HP <= 0)
-			alive = false;
+			is_alive = false;
 	}
 
-	bool isAlive()
+	bool isAlive() const
 	{
-		return alive;
+		return is_alive;
 	}
 
 	void Move(const Player &player)

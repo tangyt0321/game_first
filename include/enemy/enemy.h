@@ -21,7 +21,8 @@ public:
     virtual bool CheckPlayerConllision(const Player &player) { return false; }
     virtual bool CheckBulletConllision(const Bullet *bullet) { return false; }
     virtual void hurt() {}
-    virtual bool isAlive() { return true; }
+    virtual bool isAlive() const { return true; }
+
     virtual void Move(const Player &player) {}
     virtual void Draw(int delta) {}
 

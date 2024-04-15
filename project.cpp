@@ -9,6 +9,7 @@
 
 int WINDOW_WIDTH = 1280;
 int WINDOW_HEIGHT = 720;
+int random_id = 0;
 
 SceneManager scene_manager;
 EnemyManager enemy_manager;
@@ -56,11 +57,12 @@ int main()
 
         cleardevice();
         scene_manager.on_draw();
-
+        random_id++;
         FlushBatchDraw();
         // 帧率
         DWORD frame_end_time = GetTickCount();
         DWORD frame_delta_time = frame_end_time - frame_start_time;
+        std::cout << frame_delta_time << std::endl;
         if (frame_delta_time < 1000 / FPS)
             Sleep(1000 / FPS - frame_delta_time);
     }
