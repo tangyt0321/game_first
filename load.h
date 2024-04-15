@@ -54,6 +54,8 @@ void load_game_sources()
 {
     // 加载菜单背景
     loadimage(&img_menu_background, _T("resource/images/bkg/menu_bkg.png"));
+    // 加载游戏背景
+    loadimage(&img_background, _T("resource/images/bkg/bkg.png"));
     // 加载玩家动画
     loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
     atlas_player_right.Load_from_file(_T("resource/images/player/player_right_%d.png"), PLAYER_ANIM_NUM, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -62,6 +64,4 @@ void load_game_sources()
     loadimage(&img_enemy_boar_shadow, _T("resource/images/enemy/shadow_enemy.png"), 50, 30);
     atlas_enemy_boar_right.Load_from_file(_T("resource/images/enemy/boar_right_%d.png"), BOAR_ANIM_NUM, BOAR_WIDTH, BOAR_HEIGHT);
     flip_image_vertically(atlas_enemy_boar_right, atlas_enemy_boar_left);
-    // 加载游戏背景
-    loadimage(&img_background, _T("resource/images/bkg/bkg.png"));
 }

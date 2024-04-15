@@ -57,7 +57,7 @@ int main()
 
         cleardevice();
         scene_manager.on_draw();
-        random_id++;
+        random_id=random_id+1000;
         FlushBatchDraw();
         // 帧率
         DWORD frame_end_time = GetTickCount();

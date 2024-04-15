@@ -23,7 +23,7 @@ private:
 	Animation anim_right;
 	bool facing_left = false;
 	bool is_alive = true;
-	size_t HP = 1;
+	size_t HP = 3;
 	const int SPEED = 4;
 
 public:
