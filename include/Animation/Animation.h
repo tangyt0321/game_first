@@ -87,16 +87,6 @@ public:
         this->callback = callback;
     }
 
-    // void Play(int x, int y, int dalta)
-    // {
-    //     timer += dalta;
-    //     if (timer >= interval_ms)
-    //     {
-    //         idx_frame = (idx_frame + 1) % anim_atlas->img_List.size();
-    //         timer = 0;
-    //     }
-    //     putimage_alpha(x, y, &(anim_atlas->img_List[idx_frame]));
-    // }
 };
 
 #endif

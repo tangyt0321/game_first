@@ -7,7 +7,6 @@
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
 
-
 extern Atlas atlas_player_left;
 extern Atlas atlas_player_right;
 extern IMAGE img_shadow;
@@ -34,8 +33,6 @@ private:
     bool is_move_down = false;
     bool is_move_left = false;
     bool is_move_right = false;
-
-
 
 public:
     Player()
