@@ -18,25 +18,26 @@
 #include "include/scene/upgrade_scene.h"
 #include "include/scene/gameover_scene.h"
 
-IMAGE img_menu_background;
-
 Scene *menu_scene = nullptr;
 Scene *game_scene = nullptr;
 Scene *gameover_scene = nullptr;
 Scene *upgrade_scene = nullptr;
 
-IMAGE img_background;
-IMAGE img_shadow;
-IMAGE img_enemy_boar_shadow;
-Atlas atlas_player_left;
-Atlas atlas_player_right;
-Atlas atlas_enemy_boar_left;
-Atlas atlas_enemy_boar_right;
+IMAGE img_menu_background;   // 菜单背景
+IMAGE img_background;        // 游戏背景
+IMAGE img_shadow;            // 玩家阴影
+IMAGE img_enemy_boar_shadow; // 野猪敌人阴影
+// IMAGE img_enemy_knight_shadow; // 骑士敌人阴影
+Atlas atlas_player_left;      // 玩家左侧动画
+Atlas atlas_player_right;     // 玩家右侧动画
+Atlas atlas_enemy_boar_left;  // 野猪敌人左侧动画
+Atlas atlas_enemy_boar_right; // 野猪敌人右侧动画
 
 Player player;
 std::vector<Enemy *> enemy_list;
 std::vector<Bullet *> bullet_list;
 
+// 翻转图像
 void flip_image_vertically(Atlas &src, Atlas &dst)
 {
     dst.clear();
@@ -48,10 +49,11 @@ void flip_image_vertically(Atlas &src, Atlas &dst)
     }
 }
 
+// 加载游戏资源
 void load_game_sources()
 {
     // 加载菜单背景
-    loadimage(&img_menu_background, _T("resource/images/menu/menu_background.png"));
+    loadimage(&img_menu_background, _T("resource/images/bkg/menu_bkg.png"));
     // 加载玩家动画
     loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
     atlas_player_right.Load_from_file(_T("resource/images/player/player_right_%d.png"), PLAYER_ANIM_NUM, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -60,5 +62,6 @@ void load_game_sources()
     loadimage(&img_enemy_boar_shadow, _T("resource/images/enemy/shadow_enemy.png"), 50, 30);
     atlas_enemy_boar_right.Load_from_file(_T("resource/images/enemy/boar_right_%d.png"), BOAR_ANIM_NUM, BOAR_WIDTH, BOAR_HEIGHT);
     flip_image_vertically(atlas_enemy_boar_right, atlas_enemy_boar_left);
-    std::cout << atlas_player_right.get_img(0) << std::endl;
+    // 加载游戏背景
+    loadimage(&img_background, _T("resource/images/bkg/bkg.png"));
 }
