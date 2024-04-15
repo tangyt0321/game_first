@@ -1,11 +1,17 @@
 #pragma once
 
+#include <cmath>
+
 class Vector2
 {
 public:
     float x, y;
 
-    Vector2(float x = 0, float y = 0) : x(x), y(y) {}
+public:
+    Vector2() = default;
+    ~Vector2() = default;
+
+    Vector2(float x, float y) : x(x), y(y) {}
 
     float magnitude() const
     {
@@ -15,11 +21,16 @@ public:
     void normalize()
     {
         float mag = magnitude();
-        if (mag > 0)
+        if (mag > 0.0f)
         {
             x /= mag;
             y /= mag;
         }
+    }
+
+    float dot(const Vector2 &other) const
+    {
+        return x * other.x + y * other.y;
     }
 
     Vector2 operator+(const Vector2 &other) const
