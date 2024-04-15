@@ -52,11 +52,11 @@ public:
         shoot(enemy_list, player, bullet_list);
 
         // 全移动
+        for (Enemy *enemy : enemy_list)
+            enemy->Move(player);
         player.Move();
         for (Bullet *bullet : bullet_list)
             bullet->Move();
-        for (Enemy *enemy : enemy_list)
-            enemy->Move(player);
 
         // 全检测
         // 检测敌人玩家碰撞
