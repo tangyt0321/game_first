@@ -17,7 +17,7 @@ public:
 private:
     const float BULLET_SPEED = 30; // 子弹速度常量
     const int RADIUS = 5;          // 子弹半径常量
-    const int SCATTER = 100;        // 子弹散射范围常量
+    const int SCATTER = 50;        // 子弹散射范围常量
 
 public:
     Bullet(const Player &player, float targetX, float targetY)

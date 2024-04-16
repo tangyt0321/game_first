@@ -16,8 +16,8 @@
 
 void delete_game_resources()
 {
-    // delete atlas_player_left;
-    // delete atlas_player_right;
-    // delete atlas_enemy_boar_left;
-    // delete atlas_enemy_boar_right;
+
+    delete menu_scene;
+    delete game_scene;
+    delete gameover_scene;
 }

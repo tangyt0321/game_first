@@ -18,14 +18,16 @@ EnemyManager enemy_manager;
 // 游戏开始判定
 bool is_game_start = false;
 bool running = true;
+bool is_debug_mode = false; // 调试模式
 size_t score = 0;
 
 int main()
 {
     load_game_sources();
-    const int FPS = 60;
+    const int FPS = 30;
     // 初始化桌面
     initgraph(WINDOW_WIDTH, WINDOW_HEIGHT);
+    setbkmode(TRANSPARENT);
 
     ExMessage msg;
 
@@ -57,7 +59,7 @@ int main()
 
         cleardevice();
         scene_manager.on_draw();
-        random_id=random_id+1000;
+        random_id = random_id + 1000;
         FlushBatchDraw();
         // 帧率
         DWORD frame_end_time = GetTickCount();

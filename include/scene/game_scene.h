@@ -6,6 +6,7 @@
 #include "../player/player.h"
 #include "../enemy/enemy_manager.h"
 #include "../bullet/bullet.h"
+#include "../camera.h"
 
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
@@ -13,6 +14,7 @@ extern int WINDOW_HEIGHT;
 #include <iostream>
 
 extern bool is_game_start;
+extern bool is_debug_mode;
 extern size_t score;
 extern IMAGE img_background;
 
@@ -30,11 +32,13 @@ void TryGenerateEnemy();
 class GameScene : public Scene
 {
 private:
+    Camera camera;
+
 public:
     GameScene()
     {
         // 加载桌面
-        loadimage(&img_background, _T("resource/images/bkg/bkg.png"), WINDOW_WIDTH, WINDOW_HEIGHT);
+        // loadimage(&img_background, _T("resource/images/bkg/bkg.png"), WINDOW_WIDTH, WINDOW_HEIGHT);
     }
     ~GameScene() = default;
 
@@ -42,7 +46,7 @@ public:
     {
         // 初始化玩家
         player.alive = true;
-        player.HP = 100;
+        player.HP = player.HP_MAX;
     }
 
     void on_update(int delta)
@@ -142,6 +146,9 @@ public:
                 break;
             case 'P':
                 std::cout << "GameScene pause" << std::endl;
+                break;
+            case 'O':
+                is_debug_mode = true; // 打开调试模式
                 break;
             default:
                 break;

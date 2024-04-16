@@ -1,34 +1,71 @@
 #pragma once
 
 #include <chrono>
+#include <functional>
 
 class Timer
 {
-public:
-    Timer()
-    {
-        start_time = std::chrono::high_resolution_clock::now();
-    }
-
-    void reset()
-    {
-        start_time = std::chrono::high_resolution_clock::now();
-    }
-
-    double elapsed() const
-    {
-        auto end_time = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-        return duration.count() * 0.001;
-    }
-
-    double elapsed_seconds() const
-    {
-        auto end_time = std::chrono::high_resolution_clock::now();
-        auto duration = std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time);
-        return duration.count();
-    }
-
 private:
-    std::chrono::high_resolution_clock::time_point start_time;
-};
+    int pass_time = 0;              // 已过时间
+    int wait_time = 0;              // 等待时间
+    bool pause = false;             // 是否暂停
+    bool shotted = false;           // 是否触发
+    bool one_shot = false;          // 是否单次触发
+    std::function<void()> callback; // 触发回调
+
+public:
+    Timer() = default;
+    ~Timer() = default;
+
+    void restart()
+    {
+        pass_time = 0;
+        shotted = false;
+    }
+
+    void set_wait_time(int val)
+    {
+        wait_time = val;
+    }
+
+    void set_one_shot(bool flag)
+    {
+        one_shot = flag;
+    }
+
+    void set_callback(std::function<void()> func)
+    {
+        this->callback = func;
+    }
+
+    void pause()
+    {
+        pause = true;
+    }
+
+    void resume()
+    {
+        pause = false;
+    }
+
+    void update(int delta_time)
+    {
+        if (pause)
+            return;
+
+        pass_time += delta_time;
+
+        if (pass_time >= wait_time)
+        {
+            if ((!one_shot || (one_shot && !shotted)) && callback)
+                callback();
+            shotted = true;
+            pass_time = 0;
+        }
+
+    protected:
+        virtual void callback()
+        {
+            // do something here
+        }
+    };

@@ -49,10 +49,10 @@ public:
     {
         switch (msg.message)
         {
-        case WM_KEYDOWN:
+        case WM_KEYUP:
             switch (msg.vkcode)
             {
-            case VK_ESCAPE:
+            case VK_SPACE:
                 scene_manager.switch_scene(SceneManager::SceneType::Menu);
                 break;
             }

@@ -23,7 +23,8 @@ private:
 	Animation anim_right;
 	bool facing_left = false;
 	bool is_alive = true;
-	size_t HP = 3;
+	const size_t HP_MAX = 3;
+	size_t HP = HP_MAX;
 	const int SPEED = 4;
 
 public:
@@ -108,6 +109,28 @@ public:
 		{
 			anim_right.on_update(delta);
 			anim_right.on_draw(position.x, position.y);
+		}
+
+		if (is_debug_mode)
+		{
+			// 绘制血条
+			int hp_left = position.x + (BOAR_WIDTH / 2 - HP_MAX * 20 / 2);
+			int hp_top = position.y + 10;
+			int hp_bottom = position.y;
+			int hp_width = hp_left + HP_MAX * 20;
+			int hp_right = hp_left + HP * 20;
+			setfillcolor(BLACK);
+			fillrectangle(hp_left - 1, hp_top + 1, hp_width + 1, hp_bottom - 1);
+			setfillcolor(RED);
+			fillrectangle(hp_left, hp_top, hp_right, hp_bottom);
+
+			// 绘制碰撞箱
+			int box_left = position.x + (BOAR_WIDTH / 2 - 20);
+			int box_top = position.y + (BOAR_HEIGHT / 2 - 20);
+			int box_right = position.x + (BOAR_WIDTH / 2 + 20);
+			int box_bottom = position.y + (BOAR_HEIGHT / 2 + 20);
+			setlinecolor(BLUE);
+			rectangle(box_left, box_top, box_right, box_bottom);
 		}
 	}
 };

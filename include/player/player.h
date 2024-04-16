@@ -7,6 +7,8 @@
 extern int WINDOW_WIDTH;
 extern int WINDOW_HEIGHT;
 
+extern bool is_debug_mode;
+
 extern Atlas atlas_player_left;
 extern Atlas atlas_player_right;
 extern IMAGE img_shadow;
@@ -23,7 +25,8 @@ public:
     const int PLAYER_HEIGHT = 80;       // 玩家高度
     const int PLAYER_SPEED = 7;
     POINT position = {500, 500};
-    size_t HP = 5;
+    const size_t HP_MAX = 5;
+    size_t HP = HP_MAX;
     bool alive = true;
 
 private:
@@ -110,6 +113,8 @@ public:
 
     void Draw(int delta)
     {
+
+        // 绘制阴影
         int pos_shadow_x = position.x + (PLAYER_WIDTH / 2 - SHADOW_PLAYER_WIDTH / 2);
         int pos_shadow_y = position.y + (PLAYER_HEIGHT / 2 + 30);
         putimage_alpha(pos_shadow_x, pos_shadow_y, &img_shadow);
@@ -124,11 +129,35 @@ public:
         {
             anim_left.on_update(delta);
             anim_left.on_draw(position.x, position.y);
+            anim_left.set_loop(true);
         }
         else
         {
             anim_right.on_update(delta);
             anim_right.on_draw(position.x, position.y);
+            anim_right.set_loop(true);
+        }
+
+        if (is_debug_mode)
+        {
+            // 绘制血条
+            int hp_left = position.x + (PLAYER_WIDTH / 2 - HP_MAX * 20 / 2);
+            int hp_top = position.y + 10;
+            int hp_bottom = position.y;
+            int hp_width = hp_left + HP_MAX * 20;
+            int hp_right = hp_left + HP * 20;
+            setfillcolor(BLACK);
+            fillrectangle(hp_left - 1, hp_top + 1, hp_width + 1, hp_bottom - 1);
+            setfillcolor(RED);
+            fillrectangle(hp_left, hp_top, hp_right, hp_bottom);
+
+            // 绘制碰撞箱
+            int box_left = position.x + (PLAYER_WIDTH / 2 - 20);
+            int box_top = position.y + (PLAYER_HEIGHT / 2 - 20);
+            int box_right = position.x + (PLAYER_WIDTH / 2 + 20);
+            int box_bottom = position.y + (PLAYER_HEIGHT / 2 + 20);
+            setlinecolor(BLUE);
+            rectangle(box_left, box_top, box_right, box_bottom);
         }
     }
 

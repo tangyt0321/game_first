@@ -8,6 +8,8 @@
 
 extern SceneManager scene_manager;
 extern bool is_game_start;
+extern bool running;
+extern IMAGE img_menu_background;
 
 class MenuScene : public Scene
 {
@@ -26,14 +28,9 @@ public:
 
     void on_draw()
     {
-        settextstyle(50, 20, "黑体"); // 设置字体样式和大小
-        settextcolor(BLACK);
-        setbkcolor(WHITE);
-        outtextxy(600, 300, "游戏");
-
-        settextstyle(20, 30, "宋体"); // 设置字体样式和大小
-        settextcolor(BLACK);
-        outtextxy(500, 600, "按空格开始");
+        putimage(0, 0, &img_menu_background);                              // 绘制背景图片
+        outtextxy_shaded(600, 300, "游戏", 0, 0, 0, 50, 20, "黑体");       // 绘制游戏标题
+        outtextxy_shaded(500, 600, "按空格开始", 0, 0, 0, 30, 30, "宋体"); // 绘制开始游戏按钮
     }
 
     void on_input(const ExMessage &msg)
@@ -45,9 +42,11 @@ public:
             switch (msg.vkcode)
             {
             case VK_SPACE:
-                std::cout << "切换到游戏场景" << std::endl;
                 scene_manager.switch_scene(SceneManager::SceneType::Game);
                 is_game_start = false;
+                break;
+            case VK_ESCAPE:
+                running = false;
                 break;
             default:
                 break;
