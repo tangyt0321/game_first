@@ -3,6 +3,7 @@
 
 #include "scene.h"
 #include "scene_manager.h"
+#include "../timer/timer.h"
 
 #include <iostream>
 
@@ -10,9 +11,14 @@ extern SceneManager scene_manager;
 extern bool is_game_start;
 extern bool running;
 extern IMAGE img_menu_background;
+extern Atlas atlas_player_right;
 
 class MenuScene : public Scene
 {
+private:
+    Timer timer;
+    Camera camera;
+    Animation animation;
 
 public:
     MenuScene() = default;
@@ -20,10 +26,21 @@ public:
 
     void on_enter()
     {
+        animation.set_atlas(&atlas_player_right);
+        animation.set_interval(75);
+        animation.set_loop(true);
+
+        timer.set_wait_time(1000);
+        timer.set_one_shot(false);
+        timer.set_callback([]()
+                           { std::cout << "MenuScene timer callback" << std::endl; });
     }
 
     void on_update(int delta)
     {
+        timer.update(delta);
+        camera.on_update(delta);
+        animation.on_update(delta);
     }
 
     void on_draw()
@@ -31,11 +48,17 @@ public:
         putimage(0, 0, &img_menu_background);                              // 绘制背景图片
         outtextxy_shaded(600, 300, "游戏", 0, 0, 0, 50, 20, "黑体");       // 绘制游戏标题
         outtextxy_shaded(500, 600, "按空格开始", 0, 0, 0, 30, 30, "宋体"); // 绘制开始游戏按钮
+
+        const Vector2 &pos_camera = camera.get_position();
+        animation.on_draw(int(100 - pos_camera.x), int(100 - pos_camera.y));
     }
 
     void on_input(const ExMessage &msg)
     {
-
+        if (msg.message == WM_KEYDOWN)
+        {
+            camera.shake(10, 350);
+        }
         switch (msg.message)
         {
         case WM_KEYUP:

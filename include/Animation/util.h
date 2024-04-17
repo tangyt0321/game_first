@@ -1,6 +1,7 @@
 #pragma once
 
 #include "easyx.h"
+#include "../camera.h"
 
 // 图片垂直翻转函数
 inline void FlipImageVertically(IMAGE *src, IMAGE *dst)
@@ -30,6 +31,7 @@ inline void putimage_alpha(int dst_x, int dst_y, IMAGE *img)
     AlphaBlend(GetImageHDC(GetWorkingImage()), dst_x, dst_y, width, height,
                GetImageHDC(img), 0, 0, width, height, {AC_SRC_OVER, 0, 255, AC_SRC_ALPHA});
 }
+// inline void putimage_alpha()
 
 void outtextxy_shaded(int x, int y, LPCTSTR str, int r = 0, int g = 0, int b = 0, int size_x = 12, int size_y = 12, LPCTSTR font = _T("Arial"))
 {

@@ -3,9 +3,8 @@
 
 #include <graphics.h>
 #include <string>
-#include"../Animation/util.h"
-
-
+#include "../Animation/util.h"
+#include "../camera.h"
 
 class Scene
 {

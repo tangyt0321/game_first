@@ -8,7 +8,7 @@ class Timer
 private:
     int pass_time = 0;              // 已过时间
     int wait_time = 0;              // 等待时间
-    bool pause = false;             // 是否暂停
+    bool paused = false;             // 是否暂停
     bool shotted = false;           // 是否触发
     bool one_shot = false;          // 是否单次触发
     std::function<void()> callback; // 触发回调
@@ -40,17 +40,17 @@ public:
 
     void pause()
     {
-        pause = true;
+        paused = true;
     }
 
     void resume()
     {
-        pause = false;
+        paused = false;
     }
 
     void update(int delta_time)
     {
-        if (pause)
+        if (paused)
             return;
 
         pass_time += delta_time;
@@ -62,10 +62,11 @@ public:
             shotted = true;
             pass_time = 0;
         }
+    }
 
-    protected:
-        virtual void callback()
-        {
-            // do something here
-        }
-    };
+protected:
+    // virtual void callback()
+    // {
+    //     // do something here
+    // }
+};

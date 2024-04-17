@@ -64,7 +64,6 @@ int main()
         // 帧率
         DWORD frame_end_time = GetTickCount();
         DWORD frame_delta_time = frame_end_time - frame_start_time;
-        std::cout << frame_delta_time << std::endl;
         if (frame_delta_time < 1000 / FPS)
             Sleep(1000 / FPS - frame_delta_time);
     }

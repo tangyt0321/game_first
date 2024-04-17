@@ -33,6 +33,7 @@ class GameScene : public Scene
 {
 private:
     Camera camera;
+    Timer timer;
 
 public:
     GameScene()
@@ -54,6 +55,8 @@ public:
         // 全更新
         TryGenerateEnemy();
         shoot(enemy_list, player, bullet_list);
+        timer.update(delta);
+        camera.on_update(delta);
 
         // 全移动
         for (Enemy *enemy : enemy_list)
@@ -145,7 +148,6 @@ public:
                 is_game_start = false;
                 break;
             case 'P':
-                std::cout << "GameScene pause" << std::endl;
                 break;
             case 'O':
                 is_debug_mode = true; // 打开调试模式
