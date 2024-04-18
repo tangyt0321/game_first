@@ -36,11 +36,7 @@ private:
     Timer timer;
 
 public:
-    GameScene()
-    {
-        // 加载桌面
-        // loadimage(&img_background, _T("resource/images/bkg/bkg.png"), WINDOW_WIDTH, WINDOW_HEIGHT);
-    }
+    GameScene() = default;
     ~GameScene() = default;
 
     void on_enter()
@@ -48,6 +44,9 @@ public:
         // 初始化玩家
         player.alive = true;
         player.HP = player.HP_MAX;
+        player.position = POINT{WINDOW_WIDTH / 2 - PLAYER_WIDTH / 2, WINDOW_HEIGHT / 2 - PLAYER_HEIGHT / 2};
+        player.is_strengthen = false;
+        main_camera.reset_position();
     }
 
     void on_update(int delta)
@@ -68,15 +67,17 @@ public:
         // 检测敌人玩家碰撞
         for (Enemy *enemy : enemy_list)
         {
-
             if (enemy->CheckPlayerConllision(player))
             {
-                timer.set_wait_time(1000);
-                timer.set_one_shot(true);
-                timer.set_callback([this]()
-                                   {
-                    player.hurt();
-                    main_camera.shake(10, 350); });
+                main_camera.set_callback([this]()
+                                         {
+                                             player.hurt();
+                                             main_camera.set_shakeing(false);
+                                             //
+                                         });
+                main_camera.shake(10, 350);
+                // timer.set_wait_time(1000);
+                // timer.set_one_shot(true);
             }
         }
         // 检测玩家存活
@@ -115,6 +116,7 @@ public:
                 delete enemy;
             }
         }
+
         main_camera.on_update(delta, player.GetPosition().x, player.GetPosition().y);
     }
 
@@ -122,7 +124,7 @@ public:
     {
         // 绘制背景
         settextstyle(20, 10, "黑体"); // 设置字体样式和大小
-        settextcolor(BLACK);
+        settextcolor(WHITE);
 
         const Vector2 &camera_pos = main_camera.get_position();
         putimage(0 - camera_pos.x, 0 - camera_pos.y, &img_background);
@@ -166,12 +168,20 @@ public:
             case 'O':
                 is_debug_mode = !is_debug_mode; // 打开调试模式
                 break;
-            case 'J':
-                player.is_strengthen = true;
-                main_camera.shake(5, 200);
-                break;
             default:
                 break;
+            }
+            break;
+        case WM_KEYDOWN:
+            switch (msg.vkcode)
+            {
+            case 'J':
+                player.is_strengthen = true;
+                main_camera.set_callback([this]()
+                                         {
+                                             player.is_strengthen = false;
+                                             main_camera.set_shakeing(false); });
+                main_camera.shake(10, 550);
             }
             break;
         default:

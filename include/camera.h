@@ -14,10 +14,6 @@ public:
     Camera()
     {
         timer_shake.set_one_shot(true);
-        timer_shake.set_callback([&]()
-                                 {  
-            is_shaking = false;
-            reset_position(); });
     }
     ~Camera() = default;
 
@@ -36,17 +32,32 @@ public:
         position = Vector2(0.0f, 0.0f);
     }
 
+    void set_callback(const std::function<void()> &callback)
+    {
+        timer_shake.set_callback(callback);
+    }
+
+    void set_shakeing(bool is_shaking)
+    {
+        this->is_shaking = is_shaking;
+    }
+
     void shake(float strength, int duration)
     {
         is_shaking = true;
         shake_strength = strength;
         timer_shake.set_wait_time(duration);
+        // timer_shake.set_callback([&]()
+        //                          {
+        //                              is_shaking = false;
+        //                          });
+        timer_shake.restart();
     }
 
     void on_update(int delta, float target_x = 0.0f, float target_y = 0.0f) // 这里的target_x, target_y是为了让摄像机跟随玩家移动而设置的
     {
         // 跟随玩家移动
-        if (target_x != 0.0f || target_y != 0.0f)
+        if (target_x - position.x - WINDOW_WIDTH / 2 + PLAYER_WIDTH / 2 != 0.0f || target_y - position.y - WINDOW_HEIGHT / 2 + PLAYER_HEIGHT / 2 != 0.0f)
         {
             position.x += (target_x - position.x - WINDOW_WIDTH / 2 + PLAYER_WIDTH / 2) * 0.1f;
             position.y += (target_y - position.y - WINDOW_HEIGHT / 2 + PLAYER_HEIGHT / 2) * 0.1f;

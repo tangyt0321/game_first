@@ -29,17 +29,13 @@ public:
         animation.set_atlas(&atlas_player_right);
         animation.set_interval(75);
         animation.set_loop(true);
-
-        timer.set_wait_time(1000);
-        timer.set_one_shot(false);
-        timer.set_callback([]()
-                           { std::cout << "MenuScene timer callback" << std::endl; });
+        main_camera.reset_position();
     }
 
     void on_update(int delta)
     {
         timer.update(delta);
-        camera.on_update(delta,player.GetPosition().x,player.GetPosition().y);
+        camera.on_update(delta, 0, 0);
         animation.on_update(delta);
     }
 
