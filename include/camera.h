@@ -3,6 +3,11 @@
 #include "Vector2.h"
 #include "timer/timer.h"
 
+extern int WINDOW_WIDTH;
+extern int WINDOW_HEIGHT;
+extern int PLAYER_WIDTH;
+extern int PLAYER_HEIGHT;
+
 class Camera
 {
 public:
@@ -11,8 +16,8 @@ public:
         timer_shake.set_one_shot(true);
         timer_shake.set_callback([&]()
                                  {  
-                is_shaking = false;
-                reset_position(); });
+            is_shaking = false;
+            reset_position(); });
     }
     ~Camera() = default;
 
@@ -39,8 +44,16 @@ public:
         timer_shake.restart();
     }
 
-    void on_update(int delta)
+    void on_update(int delta, float target_x = 0.0f, float target_y = 0.0f) // 这里的target_x, target_y是为了让摄像机跟随玩家移动而设置的
     {
+        // 跟随玩家移动
+        if (target_x != 0.0f || target_y != 0.0f)
+        {
+            position.x += (target_x - position.x - WINDOW_WIDTH / 2 + PLAYER_WIDTH / 2) * 0.1f;
+            position.y += (target_y - position.y - WINDOW_HEIGHT / 2 + PLAYER_HEIGHT / 2) * 0.1f;
+        }
+
+        // 震动更新
         timer_shake.update(delta);
         if (is_shaking)
         {

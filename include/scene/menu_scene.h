@@ -39,7 +39,7 @@ public:
     void on_update(int delta)
     {
         timer.update(delta);
-        camera.on_update(delta);
+        camera.on_update(delta,player.GetPosition().x,player.GetPosition().y);
         animation.on_update(delta);
     }
 
@@ -49,8 +49,7 @@ public:
         outtextxy_shaded(600, 300, "游戏", 0, 0, 0, 50, 20, "黑体");       // 绘制游戏标题
         outtextxy_shaded(500, 600, "按空格开始", 0, 0, 0, 30, 30, "宋体"); // 绘制开始游戏按钮
 
-        const Vector2 &pos_camera = camera.get_position();
-        animation.on_draw(int(100 - pos_camera.x), int(100 - pos_camera.y));
+        animation.on_draw(camera, 100, 100);
     }
 
     void on_input(const ExMessage &msg)

@@ -77,16 +77,15 @@ public:
         }
     }
 
-    void on_draw(int x, int y) const
+    void on_draw(const Camera &Camera, int x, int y) const
     {
-        putimage_alpha(x, y, anim_atlas->get_img(idx_frame));
+        putimage_alpha(Camera, x, y, anim_atlas->get_img(idx_frame));
     }
 
     void set_callback(std::function<void()> callback)
     {
         this->callback = callback;
     }
-
 };
 
 #endif

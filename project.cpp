@@ -46,21 +46,27 @@ int main()
     {
         DWORD frame_start_time = GetTickCount();
 
+        // 处理输入
         while (peekmessage(&msg))
         {
             scene_manager.on_input(msg);
         }
 
+        // 更新场景
         static DWORD last_tick_time = GetTickCount();
         DWORD current_tick_time = GetTickCount();
         DWORD delta_time = current_tick_time - last_tick_time;
         scene_manager.on_update(delta_time);
         last_tick_time = current_tick_time;
 
+        // 绘制场景
         cleardevice();
         scene_manager.on_draw();
+
         random_id = random_id + 1000;
+        // 刷新缓冲区
         FlushBatchDraw();
+        
         // 帧率
         DWORD frame_end_time = GetTickCount();
         DWORD frame_delta_time = frame_end_time - frame_start_time;

@@ -4,8 +4,11 @@
 #include <easyx.h>
 #include <ctime>
 #include <cmath>
+#include "../Animation/Animation.h"
 
+extern Camera main_camera;
 extern int random_id;
+extern IMAGE img_bullet;
 
 class Bullet
 {
@@ -40,11 +43,23 @@ public:
     }
     ~Bullet() = default;
 
-    void Draw() const
+    void Draw()
     {
-        setfillcolor(RGB(255, 155, 50));
-        setlinecolor(RGB(255, 75, 10));
-        fillcircle(position.x, position.y, RADIUS);
+        // setfillcolor(RGB(255, 155, 50));
+        // setlinecolor(RGB(255, 75, 10));
+        // fillcircle(position.x, position.y, RADIUS);
+        putimage_alpha(main_camera, position.x, position.y, &img_bullet);
+
+        if (is_debug_mode)
+        {
+            // 绘制碰撞箱
+            int box_left = position.x;
+            int box_top = position.y;
+            int box_right = position.x + 5;
+            int box_bottom = position.y + 5;
+            setlinecolor(BLUE);
+            rectangle(box_left, box_top, box_right, box_bottom);
+        }
     }
 
     void Move()

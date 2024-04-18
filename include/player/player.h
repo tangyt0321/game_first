@@ -13,9 +13,11 @@ extern Atlas atlas_player_left;
 extern Atlas atlas_player_right;
 extern IMAGE img_shadow;
 
+extern Camera main_camera;
+
 const int PLAYER_ANIM_NUM = 6;
-const int PLAYER_WIDTH = 80;  // 玩家宽度
-const int PLAYER_HEIGHT = 80; // 玩家高度
+int PLAYER_WIDTH = 80;  // 玩家宽度
+int PLAYER_HEIGHT = 80; // 玩家高度
 
 class Player
 {
@@ -117,7 +119,7 @@ public:
         // 绘制阴影
         int pos_shadow_x = position.x + (PLAYER_WIDTH / 2 - SHADOW_PLAYER_WIDTH / 2);
         int pos_shadow_y = position.y + (PLAYER_HEIGHT / 2 + 30);
-        putimage_alpha(pos_shadow_x, pos_shadow_y, &img_shadow);
+        putimage_alpha(main_camera, pos_shadow_x, pos_shadow_y, &img_shadow);
         static bool facing_left = false;
         int dir_x = is_move_right - is_move_left;
         if (dir_x < 0)
@@ -128,13 +130,13 @@ public:
         if (facing_left)
         {
             anim_left.on_update(delta);
-            anim_left.on_draw(position.x, position.y);
+            anim_left.on_draw(main_camera, position.x, position.y);
             anim_left.set_loop(true);
         }
         else
         {
             anim_right.on_update(delta);
-            anim_right.on_draw(position.x, position.y);
+            anim_right.on_draw(main_camera, position.x, position.y);
             anim_right.set_loop(true);
         }
 
@@ -156,8 +158,7 @@ public:
             int box_top = position.y + (PLAYER_HEIGHT / 2 - 20);
             int box_right = position.x + (PLAYER_WIDTH / 2 + 20);
             int box_bottom = position.y + (PLAYER_HEIGHT / 2 + 20);
-            setlinecolor(BLUE);
-            rectangle(box_left, box_top, box_right, box_bottom);
+            rectangle(main_camera, box_left, box_top, box_right, box_bottom,BLUE);
         }
     }
 

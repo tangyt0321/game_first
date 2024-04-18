@@ -11,6 +11,8 @@ extern Atlas atlas_enemy_boar_left;
 extern Atlas atlas_enemy_boar_right;
 extern IMAGE img_enemy_boar_shadow;
 
+extern Camera main_camera;
+
 const int BOAR_ANIM_NUM = 6;
 const int BOAR_WIDTH = 80;		   // 野猪宽度
 const int BOAR_HEIGHT = 80;		   // 野猪高度
@@ -95,7 +97,7 @@ public:
 	{
 		int pos_shadow_x = position.x + (BOAR_WIDTH / 2 - SHADOW_ENEMY_WIDTH / 2);
 		int pos_shadow_y = position.y + (BOAR_HEIGHT / 2 + 5);
-		putimage_alpha(pos_shadow_x, pos_shadow_y, &img_enemy_boar_shadow);
+		putimage_alpha(main_camera, pos_shadow_x, pos_shadow_y, &img_enemy_boar_shadow);
 
 		// static bool facing_left = false;
 		// int dir_x = is_move_right - is_move_left;
@@ -103,12 +105,12 @@ public:
 		if (facing_left)
 		{
 			anim_left.on_update(delta);
-			anim_left.on_draw(position.x, position.y);
+			anim_left.on_draw(main_camera, position.x, position.y);
 		}
 		else
 		{
 			anim_right.on_update(delta);
-			anim_right.on_draw(position.x, position.y);
+			anim_right.on_draw(main_camera, position.x, position.y);
 		}
 
 		if (is_debug_mode)

@@ -28,6 +28,7 @@ IMAGE img_background;        // 游戏背景
 IMAGE img_shadow;            // 玩家阴影
 IMAGE img_enemy_boar_shadow; // 野猪敌人阴影
 // IMAGE img_enemy_knight_shadow; // 骑士敌人阴影
+IMAGE img_bullet;             // 子弹
 Atlas atlas_player_left;      // 玩家左侧动画
 Atlas atlas_player_right;     // 玩家右侧动画
 Atlas atlas_enemy_boar_left;  // 野猪敌人左侧动画
@@ -36,6 +37,8 @@ Atlas atlas_enemy_boar_right; // 野猪敌人右侧动画
 Player player;
 std::vector<Enemy *> enemy_list;
 std::vector<Bullet *> bullet_list;
+
+Camera main_camera;
 
 // 翻转图像
 void flip_image_vertically(Atlas &src, Atlas &dst)
@@ -56,6 +59,8 @@ void load_game_sources()
     loadimage(&img_menu_background, _T("resource/images/bkg/menu_bkg.png"));
     // 加载游戏背景
     loadimage(&img_background, _T("resource/images/bkg/bkg.png"));
+    // 加载子弹
+    loadimage(&img_bullet, _T("resource/images/bullet/bullet.png"), 5, 5);
     // 加载玩家动画
     loadimage(&img_shadow, _T("resource/images/player/shadow_player.png"), 50, 30);
     atlas_player_right.Load_from_file(_T("resource/images/player/player_right_%d.png"), PLAYER_ANIM_NUM, PLAYER_WIDTH, PLAYER_HEIGHT);

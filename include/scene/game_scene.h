@@ -21,6 +21,7 @@ extern IMAGE img_background;
 extern Player player;
 extern std::vector<Enemy *> enemy_list;
 extern std::vector<Bullet *> bullet_list;
+extern Camera main_camera;
 
 extern SceneManager scene_manager;
 extern EnemyManager enemy_manager;
@@ -31,8 +32,6 @@ void TryGenerateEnemy();
 
 class GameScene : public Scene
 {
-private:
-    Camera camera;
     Timer timer;
 
 public:
@@ -56,7 +55,6 @@ public:
         TryGenerateEnemy();
         shoot(enemy_list, player, bullet_list);
         timer.update(delta);
-        camera.on_update(delta);
 
         // 全移动
         for (Enemy *enemy : enemy_list)
@@ -110,6 +108,8 @@ public:
                 delete enemy;
             }
         }
+
+        main_camera.on_update(delta, player.GetPosition().x, player.GetPosition().y);
     }
 
     void on_draw()
@@ -117,7 +117,10 @@ public:
         // 绘制背景
         settextstyle(20, 10, "黑体"); // 设置字体样式和大小
         settextcolor(BLACK);
-        putimage(0, 0, &img_background);
+
+        const Vector2 &camera_pos = main_camera.get_position();
+        putimage(0 - camera_pos.x, 0 - camera_pos.y, &img_background);
+
         // 显示分数
         std::string message = std::to_string(score);
         outtextxy(50, 50, "你的分数：");
@@ -126,6 +129,11 @@ public:
         std::string HP_message = std::to_string(player.HP);
         outtextxy(50, 100, "你的生命值：");
         outtextxy(150, 100, HP_message.c_str());
+        if (is_debug_mode)
+        {
+            settextcolor(RED);
+            outtextxy(200, 50, "调试模式");
+        }
 
         // 显示玩家和敌人
         player.Draw(1000 / 144);
@@ -140,7 +148,7 @@ public:
         player.ProcessEvent(msg);
         switch (msg.message)
         {
-        case WM_KEYDOWN:
+        case WM_KEYUP:
             switch (msg.vkcode)
             {
             case VK_ESCAPE:
@@ -150,7 +158,7 @@ public:
             case 'P':
                 break;
             case 'O':
-                is_debug_mode = true; // 打开调试模式
+                is_debug_mode = !is_debug_mode; // 打开调试模式
                 break;
             default:
                 break;
@@ -202,7 +210,7 @@ void shoot(std::vector<Enemy *> &enemy_list, const Player &player, std::vector<B
         }
     }
     // 发射子弹
-    const int BULLET_GENERATE_PROBABILITY = 3;
+    const int BULLET_GENERATE_PROBABILITY = 1;
     static int counter = 0;
     if (nearestEnemy != nullptr)
     {
