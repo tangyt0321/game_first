@@ -66,7 +66,7 @@ int main()
         random_id = random_id + 1000;
         // 刷新缓冲区
         FlushBatchDraw();
-        
+
         // 帧率
         DWORD frame_end_time = GetTickCount();
         DWORD frame_delta_time = frame_end_time - frame_start_time;

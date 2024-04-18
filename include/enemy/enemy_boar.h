@@ -28,6 +28,7 @@ private:
 	const size_t HP_MAX = 3;
 	size_t HP = HP_MAX;
 	const int SPEED = 4;
+	const int BOAR_FRAME_WIDTH = 20;
 
 public:
 	EnemyBoar()
@@ -121,18 +122,18 @@ public:
 			int hp_bottom = position.y;
 			int hp_width = hp_left + HP_MAX * 20;
 			int hp_right = hp_left + HP * 20;
-			setfillcolor(BLACK);
-			fillrectangle(hp_left - 1, hp_top + 1, hp_width + 1, hp_bottom - 1);
-			setfillcolor(RED);
-			fillrectangle(hp_left, hp_top, hp_right, hp_bottom);
+			// setfillcolor(BLACK);
+			fillrectangle(main_camera, hp_left - 1, hp_top + 1, hp_width + 1, hp_bottom - 1, BLACK);
+			// setfillcolor(RED);
+			fillrectangle(main_camera, hp_left, hp_top, hp_right, hp_bottom, RED);
 
 			// 绘制碰撞箱
-			int box_left = position.x + (BOAR_WIDTH / 2 - 20);
-			int box_top = position.y + (BOAR_HEIGHT / 2 - 20);
-			int box_right = position.x + (BOAR_WIDTH / 2 + 20);
-			int box_bottom = position.y + (BOAR_HEIGHT / 2 + 20);
-			setlinecolor(BLUE);
-			rectangle(box_left, box_top, box_right, box_bottom);
+			int box_left = position.x + (BOAR_WIDTH / 2 - BOAR_FRAME_WIDTH);
+			int box_top = position.y + (BOAR_HEIGHT / 2 - BOAR_FRAME_WIDTH);
+			int box_right = position.x + (BOAR_WIDTH / 2 + BOAR_FRAME_WIDTH);
+			int box_bottom = position.y + (BOAR_HEIGHT / 2 + BOAR_FRAME_WIDTH);
+			// setlinecolor(BLUE);
+			rectangle(main_camera, box_left, box_top, box_right, box_bottom, BLUE);
 		}
 	}
 };

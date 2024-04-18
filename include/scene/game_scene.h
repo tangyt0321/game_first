@@ -32,6 +32,7 @@ void TryGenerateEnemy();
 
 class GameScene : public Scene
 {
+private:
     Timer timer;
 
 public:
@@ -67,17 +68,23 @@ public:
         // 检测敌人玩家碰撞
         for (Enemy *enemy : enemy_list)
         {
+
             if (enemy->CheckPlayerConllision(player))
             {
-                player.hurt();
-                if (player.isAlive() == false)
-                {
-                    scene_manager.switch_scene(SceneManager::SceneType::GameOver);
-                    // MessageBox(GetHWnd(), _T("游戏结束"), _T("游戏结束"), MB_OK);
-                    is_game_start = false;
-                    break;
-                }
+                timer.set_wait_time(1000);
+                timer.set_one_shot(true);
+                timer.set_callback([this]()
+                                   {
+                    player.hurt();
+                    main_camera.shake(10, 350); });
             }
+        }
+        // 检测玩家存活
+        if (player.isAlive() == false)
+        {
+            scene_manager.switch_scene(SceneManager::SceneType::GameOver);
+            // MessageBox(GetHWnd(), _T("游戏结束"), _T("游戏结束"), MB_OK);
+            is_game_start = false;
         }
         // 检测子弹和敌人碰撞
         for (Enemy *enemy : enemy_list)
@@ -108,7 +115,6 @@ public:
                 delete enemy;
             }
         }
-
         main_camera.on_update(delta, player.GetPosition().x, player.GetPosition().y);
     }
 
@@ -160,6 +166,10 @@ public:
             case 'O':
                 is_debug_mode = !is_debug_mode; // 打开调试模式
                 break;
+            case 'J':
+                player.is_strengthen = true;
+                main_camera.shake(5, 200);
+                break;
             default:
                 break;
             }
@@ -210,7 +220,11 @@ void shoot(std::vector<Enemy *> &enemy_list, const Player &player, std::vector<B
         }
     }
     // 发射子弹
-    const int BULLET_GENERATE_PROBABILITY = 1;
+    int BULLET_GENERATE_PROBABILITY = 10;
+    if (player.is_strengthen)
+        BULLET_GENERATE_PROBABILITY = 1;
+    else
+        BULLET_GENERATE_PROBABILITY = 10;
     static int counter = 0;
     if (nearestEnemy != nullptr)
     {

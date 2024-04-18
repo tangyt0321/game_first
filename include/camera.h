@@ -41,7 +41,6 @@ public:
         is_shaking = true;
         shake_strength = strength;
         timer_shake.set_wait_time(duration);
-        timer_shake.restart();
     }
 
     void on_update(int delta, float target_x = 0.0f, float target_y = 0.0f) // 这里的target_x, target_y是为了让摄像机跟随玩家移动而设置的
@@ -57,8 +56,8 @@ public:
         timer_shake.update(delta);
         if (is_shaking)
         {
-            position.x = (-50 + rand() % 100) / 50.0f * shake_strength;
-            position.y = (-50 + rand() % 100) / 50.0f * shake_strength;
+            position.x += (-50 + rand() % 100) / 50.0f * shake_strength;
+            position.y += (-50 + rand() % 100) / 50.0f * shake_strength;
         }
     }
 

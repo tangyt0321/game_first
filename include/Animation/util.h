@@ -39,12 +39,23 @@ inline void putimage_alpha(const Camera &camera, int dst_x, int dst_y, IMAGE *im
     AlphaBlend(GetImageHDC(GetWorkingImage()), (int)(dst_x - pos_camera.x), (int)(dst_y - pos_camera.y),
                width, height, GetImageHDC(img), 0, 0, width, height, {AC_SRC_OVER, 0, 255, AC_SRC_ALPHA});
 }
-inline void rectangle(const Camera &camera, int x1, int y1, int x2, int y2, COLORREF color) 
+inline void rectangle(const Camera &camera, int x1, int y1, int x2, int y2, COLORREF color)
 {
     setlinecolor(color);
     const Vector2 &pos_camera = camera.get_position();
     rectangle((int)(x1 - pos_camera.x), (int)(y1 - pos_camera.y), (int)(x2 - pos_camera.x), (int)(y2 - pos_camera.y));
 }
+inline void fillrectangle(const Camera &camera, int x1, int y1, int x2, int y2, COLORREF color)
+{
+    setfillcolor(color);
+    const Vector2 &pos_camera = camera.get_position();
+    fillrectangle((int)(x1 - pos_camera.x), (int)(y1 - pos_camera.y), (int)(x2 - pos_camera.x), (int)(y2 - pos_camera.y));
+}
+// inline void camera_draw_image(const Camera &camera, int x1, int y1, int x2, int y2, void (*callback)(int, int, int, int))
+// {
+//     const Vector2 &pos_camera = camera.get_position();
+//     *callback((int)(x1 - pos_camera.x), (int)(y1 - pos_camera.y), (int)(x2 - pos_camera.x), (int)(y2 - pos_camera.y));
+// }
 
 void outtextxy_shaded(int x, int y, LPCTSTR str, int r = 0, int g = 0, int b = 0, int size_x = 12, int size_y = 12, LPCTSTR font = _T("Arial"))
 {

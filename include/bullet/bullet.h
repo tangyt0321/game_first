@@ -57,8 +57,8 @@ public:
             int box_top = position.y;
             int box_right = position.x + 5;
             int box_bottom = position.y + 5;
-            setlinecolor(BLUE);
-            rectangle(box_left, box_top, box_right, box_bottom);
+            // setlinecolor(BLUE);
+            rectangle(main_camera, box_left, box_top, box_right, box_bottom, BLUE);
         }
     }
 
