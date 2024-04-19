@@ -33,7 +33,7 @@ public:
     {
         one_shot = flag;
     }
-
+    
     void set_callback(std::function<void()> func)
     {
         this->callback = func;
