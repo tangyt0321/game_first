@@ -42,7 +42,7 @@ public:
         outtextxy(100, 200, "游戏结束！");
         outtextxy(100, 300, "你的分数：");
         outtextxy(100 + 100, 300, message.c_str());
-        outtextxy(100, 400, "按ESCAPE键返回菜单");
+        outtextxy(100, 400, "按SPACE键返回菜单");
     }
 
     void on_input(const ExMessage &msg)
